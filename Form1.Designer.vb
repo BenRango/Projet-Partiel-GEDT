@@ -29,8 +29,8 @@ Partial Class Form1
         Me.login_button = New System.Windows.Forms.Button()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.SuspendLayout()
@@ -77,7 +77,8 @@ Partial Class Form1
         '
         'login_button
         '
-        Me.login_button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red
+        Me.login_button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Turquoise
+        Me.login_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.login_button.Location = New System.Drawing.Point(108, 353)
         Me.login_button.Name = "login_button"
         Me.login_button.Size = New System.Drawing.Size(148, 36)
@@ -108,17 +109,6 @@ Partial Class Form1
         Me.Panel2.Size = New System.Drawing.Size(397, 426)
         Me.Panel2.TabIndex = 6
         '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Verdana", 19.25!, System.Drawing.FontStyle.Bold)
-        Me.Label3.ForeColor = System.Drawing.Color.White
-        Me.Label3.Location = New System.Drawing.Point(1, 104)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(396, 32)
-        Me.Label3.TabIndex = 0
-        Me.Label3.Text = "GESTIONNAIRE D'EMPLOI"
-        '
         'Label4
         '
         Me.Label4.AutoSize = True
@@ -129,6 +119,17 @@ Partial Class Form1
         Me.Label4.Size = New System.Drawing.Size(158, 31)
         Me.Label4.TabIndex = 1
         Me.Label4.Text = "DU TEMPS"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Verdana", 19.25!, System.Drawing.FontStyle.Bold)
+        Me.Label3.ForeColor = System.Drawing.Color.White
+        Me.Label3.Location = New System.Drawing.Point(1, 104)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(396, 32)
+        Me.Label3.TabIndex = 0
+        Me.Label3.Text = "GESTIONNAIRE D'EMPLOI"
         '
         'Form1
         '

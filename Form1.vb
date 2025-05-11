@@ -14,7 +14,6 @@ Public Class Form1
     End Sub
     Private Sub RoundButtonCorners(btn As Button, radius As Integer)
         ' Configuration du bouton pour un meilleur rendu
-        btn.FlatStyle = FlatStyle.Flat
         btn.FlatAppearance.BorderSize = 2 ' Important pour voir la bordure
         btn.FlatAppearance.BorderColor = Color.Gray ' Couleur de la bordure
 
