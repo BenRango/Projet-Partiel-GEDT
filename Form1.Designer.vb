@@ -31,8 +31,80 @@ Partial Class Form1
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
+        Me.HomePanel = New System.Windows.Forms.Panel()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.AddSubjectButton = New System.Windows.Forms.Button()
+        Me.deleteEDTButton = New System.Windows.Forms.Button()
+        Me.listEDTButton = New System.Windows.Forms.Button()
+        Me.editEDTButton = New System.Windows.Forms.Button()
+        Me.addEDTButton = New System.Windows.Forms.Button()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.AddItemPannel = New System.Windows.Forms.Panel()
+        Me.confirmAddItemButton = New System.Windows.Forms.Button()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.AddClassPannel = New System.Windows.Forms.Panel()
+        Me.AddProfPanel = New System.Windows.Forms.Panel()
+        Me.profPhoneAddField = New System.Windows.Forms.TextBox()
+        Me.profNameAddField = New System.Windows.Forms.TextBox()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.classNameAddField = New System.Windows.Forms.TextBox()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.AddSubjectPannel = New System.Windows.Forms.Panel()
+        Me.nuTotalHours = New System.Windows.Forms.NumericUpDown()
+        Me.cbTeacher = New System.Windows.Forms.ComboBox()
+        Me.subjectNameField = New System.Windows.Forms.TextBox()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.ItemToAddConfirmButton = New System.Windows.Forms.Button()
+        Me.cbItemToAdd = New System.Windows.Forms.ComboBox()
+        Me.AddEDTPannel = New System.Windows.Forms.Panel()
+        Me.back_From_AddEDT = New System.Windows.Forms.Button()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.cbClasses = New System.Windows.Forms.ComboBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.cbCreneaux = New System.Windows.Forms.ComboBox()
+        Me.cbSubjects = New System.Windows.Forms.ComboBox()
+        Me.cbDays = New System.Windows.Forms.ComboBox()
+        Me.cbWeeks = New System.Windows.Forms.ComboBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.edtPannel = New System.Windows.Forms.Panel()
+        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.backFromShowEDT = New System.Windows.Forms.Button()
+        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.classRoomAddField = New System.Windows.Forms.NumericUpDown()
+        Me.BackFromAddItem = New System.Windows.Forms.Button()
+        Me.ShowItemsPanel = New System.Windows.Forms.Panel()
+        Me.dgvClasses = New System.Windows.Forms.DataGridView()
+        Me.dgvSubjects = New System.Windows.Forms.DataGridView()
+        Me.dgvProfs = New System.Windows.Forms.DataGridView()
+        Me.label21 = New System.Windows.Forms.Label()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.BackFromShowItems = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
+        Me.HomePanel.SuspendLayout()
+        Me.AddItemPannel.SuspendLayout()
+        Me.AddClassPannel.SuspendLayout()
+        Me.AddProfPanel.SuspendLayout()
+        Me.AddSubjectPannel.SuspendLayout()
+        CType(Me.nuTotalHours, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.AddEDTPannel.SuspendLayout()
+        Me.edtPannel.SuspendLayout()
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.classRoomAddField, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.ShowItemsPanel.SuspendLayout()
+        CType(Me.dgvClasses, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvSubjects, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvProfs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'username_field
@@ -42,7 +114,6 @@ Partial Class Form1
         Me.username_field.Name = "username_field"
         Me.username_field.Size = New System.Drawing.Size(169, 31)
         Me.username_field.TabIndex = 0
-        Me.username_field.Text = "Nom d'utilisateur"
         '
         'Label1
         '
@@ -51,9 +122,9 @@ Partial Class Form1
         Me.Label1.ForeColor = System.Drawing.Color.DodgerBlue
         Me.Label1.Location = New System.Drawing.Point(103, 36)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(172, 29)
+        Me.Label1.Size = New System.Drawing.Size(137, 29)
         Me.Label1.TabIndex = 1
-        Me.Label1.Text = "Se Connecter"
+        Me.Label1.Text = "Connexion"
         '
         'Label2
         '
@@ -72,12 +143,10 @@ Partial Class Form1
         Me.password_field.Name = "password_field"
         Me.password_field.Size = New System.Drawing.Size(169, 31)
         Me.password_field.TabIndex = 3
-        Me.password_field.Text = "Mot de passe"
-        Me.password_field.UseSystemPasswordChar = True
         '
         'login_button
         '
-        Me.login_button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Turquoise
+        Me.login_button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.PaleTurquoise
         Me.login_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.login_button.Location = New System.Drawing.Point(108, 353)
         Me.login_button.Name = "login_button"
@@ -94,7 +163,7 @@ Partial Class Form1
         Me.Panel1.Controls.Add(Me.username_field)
         Me.Panel1.Controls.Add(Me.Label1)
         Me.Panel1.Controls.Add(Me.Label2)
-        Me.Panel1.Location = New System.Drawing.Point(405, 12)
+        Me.Panel1.Location = New System.Drawing.Point(415, 12)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(383, 426)
         Me.Panel1.TabIndex = 5
@@ -104,7 +173,7 @@ Partial Class Form1
         Me.Panel2.BackColor = System.Drawing.Color.LightSeaGreen
         Me.Panel2.Controls.Add(Me.Label4)
         Me.Panel2.Controls.Add(Me.Label3)
-        Me.Panel2.Location = New System.Drawing.Point(2, 12)
+        Me.Panel2.Location = New System.Drawing.Point(12, 12)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(397, 426)
         Me.Panel2.TabIndex = 6
@@ -131,12 +200,580 @@ Partial Class Form1
         Me.Label3.TabIndex = 0
         Me.Label3.Text = "GESTIONNAIRE D'EMPLOI"
         '
+        'HomePanel
+        '
+        Me.HomePanel.BackColor = System.Drawing.Color.White
+        Me.HomePanel.Controls.Add(Me.Button2)
+        Me.HomePanel.Controls.Add(Me.AddSubjectButton)
+        Me.HomePanel.Controls.Add(Me.deleteEDTButton)
+        Me.HomePanel.Controls.Add(Me.listEDTButton)
+        Me.HomePanel.Controls.Add(Me.editEDTButton)
+        Me.HomePanel.Controls.Add(Me.addEDTButton)
+        Me.HomePanel.Controls.Add(Me.Label5)
+        Me.HomePanel.Location = New System.Drawing.Point(9, 9)
+        Me.HomePanel.Name = "HomePanel"
+        Me.HomePanel.Size = New System.Drawing.Size(801, 429)
+        Me.HomePanel.TabIndex = 7
+        '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(514, 258)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(197, 48)
+        Me.Button2.TabIndex = 10
+        Me.Button2.Text = "Afficher les Matières/Classes/Professeur"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
+        'AddSubjectButton
+        '
+        Me.AddSubjectButton.Location = New System.Drawing.Point(514, 113)
+        Me.AddSubjectButton.Name = "AddSubjectButton"
+        Me.AddSubjectButton.Size = New System.Drawing.Size(197, 48)
+        Me.AddSubjectButton.TabIndex = 7
+        Me.AddSubjectButton.Text = "Ajouter une Matière/un Professeur/une Classe"
+        Me.AddSubjectButton.UseVisualStyleBackColor = True
+        '
+        'deleteEDTButton
+        '
+        Me.deleteEDTButton.Location = New System.Drawing.Point(38, 272)
+        Me.deleteEDTButton.Name = "deleteEDTButton"
+        Me.deleteEDTButton.Size = New System.Drawing.Size(197, 34)
+        Me.deleteEDTButton.TabIndex = 6
+        Me.deleteEDTButton.Text = "Supprimer un Emploi du temps"
+        Me.deleteEDTButton.UseVisualStyleBackColor = True
+        '
+        'listEDTButton
+        '
+        Me.listEDTButton.Location = New System.Drawing.Point(38, 113)
+        Me.listEDTButton.Name = "listEDTButton"
+        Me.listEDTButton.Size = New System.Drawing.Size(197, 34)
+        Me.listEDTButton.TabIndex = 5
+        Me.listEDTButton.Text = "Liste des Emplois du temps"
+        Me.listEDTButton.UseVisualStyleBackColor = True
+        '
+        'editEDTButton
+        '
+        Me.editEDTButton.Location = New System.Drawing.Point(38, 219)
+        Me.editEDTButton.Name = "editEDTButton"
+        Me.editEDTButton.Size = New System.Drawing.Size(197, 34)
+        Me.editEDTButton.TabIndex = 4
+        Me.editEDTButton.Text = "Modifier un Emploi du temps"
+        Me.editEDTButton.UseVisualStyleBackColor = True
+        '
+        'addEDTButton
+        '
+        Me.addEDTButton.Location = New System.Drawing.Point(38, 166)
+        Me.addEDTButton.Name = "addEDTButton"
+        Me.addEDTButton.Size = New System.Drawing.Size(197, 34)
+        Me.addEDTButton.TabIndex = 3
+        Me.addEDTButton.Text = "Ajouter un Emploi du temps"
+        Me.addEDTButton.UseVisualStyleBackColor = True
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 17.0!, System.Drawing.FontStyle.Bold)
+        Me.Label5.ForeColor = System.Drawing.Color.DodgerBlue
+        Me.Label5.Location = New System.Drawing.Point(316, 36)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(150, 29)
+        Me.Label5.TabIndex = 1
+        Me.Label5.Text = "Bienvenue !"
+        '
+        'AddItemPannel
+        '
+        Me.AddItemPannel.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.AddItemPannel.Controls.Add(Me.BackFromAddItem)
+        Me.AddItemPannel.Controls.Add(Me.AddSubjectPannel)
+        Me.AddItemPannel.Controls.Add(Me.confirmAddItemButton)
+        Me.AddItemPannel.Controls.Add(Me.AddProfPanel)
+        Me.AddItemPannel.Controls.Add(Me.Label18)
+        Me.AddItemPannel.Controls.Add(Me.AddClassPannel)
+        Me.AddItemPannel.Controls.Add(Me.ItemToAddConfirmButton)
+        Me.AddItemPannel.Controls.Add(Me.cbItemToAdd)
+        Me.AddItemPannel.Location = New System.Drawing.Point(6, 9)
+        Me.AddItemPannel.Name = "AddItemPannel"
+        Me.AddItemPannel.Size = New System.Drawing.Size(801, 429)
+        Me.AddItemPannel.TabIndex = 11
+        '
+        'confirmAddItemButton
+        '
+        Me.confirmAddItemButton.Location = New System.Drawing.Point(324, 301)
+        Me.confirmAddItemButton.Name = "confirmAddItemButton"
+        Me.confirmAddItemButton.Size = New System.Drawing.Size(128, 38)
+        Me.confirmAddItemButton.TabIndex = 5
+        Me.confirmAddItemButton.Text = "Ajouter"
+        Me.confirmAddItemButton.UseVisualStyleBackColor = True
+        '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label18.ForeColor = System.Drawing.Color.DodgerBlue
+        Me.Label18.Location = New System.Drawing.Point(276, 15)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(249, 21)
+        Me.Label18.TabIndex = 4
+        Me.Label18.Text = "Que souhaiteriez vous ajouter ?"
+        '
+        'AddClassPannel
+        '
+        Me.AddClassPannel.Controls.Add(Me.classRoomAddField)
+        Me.AddClassPannel.Controls.Add(Me.classNameAddField)
+        Me.AddClassPannel.Controls.Add(Me.Label17)
+        Me.AddClassPannel.Controls.Add(Me.Label16)
+        Me.AddClassPannel.Location = New System.Drawing.Point(89, 167)
+        Me.AddClassPannel.Name = "AddClassPannel"
+        Me.AddClassPannel.Size = New System.Drawing.Size(592, 127)
+        Me.AddClassPannel.TabIndex = 3
+        Me.AddClassPannel.Visible = False
+        '
+        'AddProfPanel
+        '
+        Me.AddProfPanel.Controls.Add(Me.profPhoneAddField)
+        Me.AddProfPanel.Controls.Add(Me.profNameAddField)
+        Me.AddProfPanel.Controls.Add(Me.Label20)
+        Me.AddProfPanel.Controls.Add(Me.Label19)
+        Me.AddProfPanel.Location = New System.Drawing.Point(89, 166)
+        Me.AddProfPanel.Name = "AddProfPanel"
+        Me.AddProfPanel.Size = New System.Drawing.Size(598, 128)
+        Me.AddProfPanel.TabIndex = 5
+        Me.AddProfPanel.Visible = False
+        '
+        'profPhoneAddField
+        '
+        Me.profPhoneAddField.Location = New System.Drawing.Point(399, 54)
+        Me.profPhoneAddField.Name = "profPhoneAddField"
+        Me.profPhoneAddField.Size = New System.Drawing.Size(142, 20)
+        Me.profPhoneAddField.TabIndex = 5
+        '
+        'profNameAddField
+        '
+        Me.profNameAddField.Location = New System.Drawing.Point(93, 54)
+        Me.profNameAddField.Name = "profNameAddField"
+        Me.profNameAddField.Size = New System.Drawing.Size(142, 20)
+        Me.profNameAddField.TabIndex = 4
+        '
+        'Label20
+        '
+        Me.Label20.AutoSize = True
+        Me.Label20.Location = New System.Drawing.Point(396, 24)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(109, 13)
+        Me.Label20.TabIndex = 1
+        Me.Label20.Text = "Numéro de téléphone"
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Location = New System.Drawing.Point(90, 24)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(96, 13)
+        Me.Label19.TabIndex = 0
+        Me.Label19.Text = "Nom du professeur"
+        '
+        'classNameAddField
+        '
+        Me.classNameAddField.Location = New System.Drawing.Point(133, 51)
+        Me.classNameAddField.Name = "classNameAddField"
+        Me.classNameAddField.Size = New System.Drawing.Size(142, 20)
+        Me.classNameAddField.TabIndex = 2
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Location = New System.Drawing.Point(378, 21)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(78, 13)
+        Me.Label17.TabIndex = 1
+        Me.Label17.Text = "Salle de classe"
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Location = New System.Drawing.Point(130, 21)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(88, 13)
+        Me.Label16.TabIndex = 0
+        Me.Label16.Text = "Nom de la classe"
+        '
+        'AddSubjectPannel
+        '
+        Me.AddSubjectPannel.Controls.Add(Me.nuTotalHours)
+        Me.AddSubjectPannel.Controls.Add(Me.cbTeacher)
+        Me.AddSubjectPannel.Controls.Add(Me.subjectNameField)
+        Me.AddSubjectPannel.Controls.Add(Me.Label15)
+        Me.AddSubjectPannel.Controls.Add(Me.Label14)
+        Me.AddSubjectPannel.Controls.Add(Me.Label13)
+        Me.AddSubjectPannel.Location = New System.Drawing.Point(87, 166)
+        Me.AddSubjectPannel.Name = "AddSubjectPannel"
+        Me.AddSubjectPannel.Size = New System.Drawing.Size(600, 129)
+        Me.AddSubjectPannel.TabIndex = 2
+        Me.AddSubjectPannel.Visible = False
+        '
+        'nuTotalHours
+        '
+        Me.nuTotalHours.Location = New System.Drawing.Point(251, 60)
+        Me.nuTotalHours.Name = "nuTotalHours"
+        Me.nuTotalHours.Size = New System.Drawing.Size(110, 20)
+        Me.nuTotalHours.TabIndex = 4
+        '
+        'cbTeacher
+        '
+        Me.cbTeacher.FormattingEnabled = True
+        Me.cbTeacher.Location = New System.Drawing.Point(427, 60)
+        Me.cbTeacher.Name = "cbTeacher"
+        Me.cbTeacher.Size = New System.Drawing.Size(105, 21)
+        Me.cbTeacher.TabIndex = 3
+        '
+        'subjectNameField
+        '
+        Me.subjectNameField.Location = New System.Drawing.Point(45, 61)
+        Me.subjectNameField.Name = "subjectNameField"
+        Me.subjectNameField.Size = New System.Drawing.Size(100, 20)
+        Me.subjectNameField.TabIndex = 3
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Location = New System.Drawing.Point(424, 32)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(60, 13)
+        Me.Label15.TabIndex = 2
+        Me.Label15.Text = "Enseignant"
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Location = New System.Drawing.Point(248, 32)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(79, 13)
+        Me.Label14.TabIndex = 1
+        Me.Label14.Text = "Volume Horaire"
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Location = New System.Drawing.Point(42, 32)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(29, 13)
+        Me.Label13.TabIndex = 0
+        Me.Label13.Text = "Nom"
+        '
+        'ItemToAddConfirmButton
+        '
+        Me.ItemToAddConfirmButton.Location = New System.Drawing.Point(496, 68)
+        Me.ItemToAddConfirmButton.Name = "ItemToAddConfirmButton"
+        Me.ItemToAddConfirmButton.Size = New System.Drawing.Size(75, 23)
+        Me.ItemToAddConfirmButton.TabIndex = 1
+        Me.ItemToAddConfirmButton.Text = "Choisir"
+        Me.ItemToAddConfirmButton.UseVisualStyleBackColor = True
+        '
+        'cbItemToAdd
+        '
+        Me.cbItemToAdd.FormattingEnabled = True
+        Me.cbItemToAdd.Items.AddRange(New Object() {"MATIÈRE", "PROFESSEUR", "CLASSE"})
+        Me.cbItemToAdd.Location = New System.Drawing.Point(265, 71)
+        Me.cbItemToAdd.Name = "cbItemToAdd"
+        Me.cbItemToAdd.Size = New System.Drawing.Size(121, 21)
+        Me.cbItemToAdd.TabIndex = 0
+        '
+        'AddEDTPannel
+        '
+        Me.AddEDTPannel.BackColor = System.Drawing.Color.White
+        Me.AddEDTPannel.Controls.Add(Me.back_From_AddEDT)
+        Me.AddEDTPannel.Controls.Add(Me.Button1)
+        Me.AddEDTPannel.Controls.Add(Me.cbClasses)
+        Me.AddEDTPannel.Controls.Add(Me.Label12)
+        Me.AddEDTPannel.Controls.Add(Me.Label11)
+        Me.AddEDTPannel.Controls.Add(Me.cbCreneaux)
+        Me.AddEDTPannel.Controls.Add(Me.cbSubjects)
+        Me.AddEDTPannel.Controls.Add(Me.cbDays)
+        Me.AddEDTPannel.Controls.Add(Me.cbWeeks)
+        Me.AddEDTPannel.Controls.Add(Me.Label10)
+        Me.AddEDTPannel.Controls.Add(Me.Label9)
+        Me.AddEDTPannel.Controls.Add(Me.Label8)
+        Me.AddEDTPannel.Controls.Add(Me.Label6)
+        Me.AddEDTPannel.Location = New System.Drawing.Point(12, 9)
+        Me.AddEDTPannel.Name = "AddEDTPannel"
+        Me.AddEDTPannel.Size = New System.Drawing.Size(801, 426)
+        Me.AddEDTPannel.TabIndex = 8
+        '
+        'back_From_AddEDT
+        '
+        Me.back_From_AddEDT.Location = New System.Drawing.Point(13, 25)
+        Me.back_From_AddEDT.Name = "back_From_AddEDT"
+        Me.back_From_AddEDT.Size = New System.Drawing.Size(75, 23)
+        Me.back_From_AddEDT.TabIndex = 16
+        Me.back_From_AddEDT.Text = "Retour"
+        Me.back_From_AddEDT.UseVisualStyleBackColor = True
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(286, 272)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(159, 34)
+        Me.Button1.TabIndex = 15
+        Me.Button1.Text = "Ajouter la ligne"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'cbClasses
+        '
+        Me.cbClasses.FormattingEnabled = True
+        Me.cbClasses.Location = New System.Drawing.Point(59, 153)
+        Me.cbClasses.Name = "cbClasses"
+        Me.cbClasses.Size = New System.Drawing.Size(97, 21)
+        Me.cbClasses.TabIndex = 14
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Location = New System.Drawing.Point(80, 133)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(38, 13)
+        Me.Label12.TabIndex = 13
+        Me.Label12.Text = "Classe"
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(588, 132)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(47, 13)
+        Me.Label11.TabIndex = 12
+        Me.Label11.Text = "Créneau"
+        '
+        'cbCreneaux
+        '
+        Me.cbCreneaux.FormattingEnabled = True
+        Me.cbCreneaux.Location = New System.Drawing.Point(568, 153)
+        Me.cbCreneaux.Name = "cbCreneaux"
+        Me.cbCreneaux.Size = New System.Drawing.Size(97, 21)
+        Me.cbCreneaux.TabIndex = 11
+        '
+        'cbSubjects
+        '
+        Me.cbSubjects.FormattingEnabled = True
+        Me.cbSubjects.Location = New System.Drawing.Point(425, 153)
+        Me.cbSubjects.Name = "cbSubjects"
+        Me.cbSubjects.Size = New System.Drawing.Size(97, 21)
+        Me.cbSubjects.TabIndex = 10
+        '
+        'cbDays
+        '
+        Me.cbDays.FormattingEnabled = True
+        Me.cbDays.Location = New System.Drawing.Point(309, 153)
+        Me.cbDays.Name = "cbDays"
+        Me.cbDays.Size = New System.Drawing.Size(74, 21)
+        Me.cbDays.TabIndex = 9
+        '
+        'cbWeeks
+        '
+        Me.cbWeeks.FormattingEnabled = True
+        Me.cbWeeks.Location = New System.Drawing.Point(176, 153)
+        Me.cbWeeks.Name = "cbWeeks"
+        Me.cbWeeks.Size = New System.Drawing.Size(97, 21)
+        Me.cbWeeks.TabIndex = 8
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(441, 133)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(52, 13)
+        Me.Label10.TabIndex = 7
+        Me.Label10.Text = "Discipline"
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(332, 132)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(27, 13)
+        Me.Label9.TabIndex = 6
+        Me.Label9.Text = "Jour"
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(197, 133)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(48, 13)
+        Me.Label8.TabIndex = 5
+        Me.Label8.Text = "Semaine"
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 17.0!, System.Drawing.FontStyle.Bold)
+        Me.Label6.ForeColor = System.Drawing.Color.DodgerBlue
+        Me.Label6.Location = New System.Drawing.Point(211, 36)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(332, 29)
+        Me.Label6.TabIndex = 1
+        Me.Label6.Text = "Ajouter un emploi du temps"
+        '
+        'edtPannel
+        '
+        Me.edtPannel.BackColor = System.Drawing.Color.White
+        Me.edtPannel.Controls.Add(Me.TableLayoutPanel1)
+        Me.edtPannel.Controls.Add(Me.backFromShowEDT)
+        Me.edtPannel.Controls.Add(Me.DataGridView1)
+        Me.edtPannel.Controls.Add(Me.Label7)
+        Me.edtPannel.Location = New System.Drawing.Point(12, 9)
+        Me.edtPannel.Name = "edtPannel"
+        Me.edtPannel.Size = New System.Drawing.Size(807, 506)
+        Me.edtPannel.TabIndex = 9
+        Me.edtPannel.Visible = False
+        '
+        'TableLayoutPanel1
+        '
+        Me.TableLayoutPanel1.ColumnCount = 6
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 44.19643!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55.80357!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 137.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 105.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 101.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 128.0!))
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(13, 204)
+        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
+        Me.TableLayoutPanel1.RowCount = 4
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 48.42105!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 51.57895!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 49.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(685, 193)
+        Me.TableLayoutPanel1.TabIndex = 4
+        '
+        'backFromShowEDT
+        '
+        Me.backFromShowEDT.Location = New System.Drawing.Point(32, 28)
+        Me.backFromShowEDT.Name = "backFromShowEDT"
+        Me.backFromShowEDT.Size = New System.Drawing.Size(75, 23)
+        Me.backFromShowEDT.TabIndex = 3
+        Me.backFromShowEDT.Text = "Retour"
+        Me.backFromShowEDT.UseVisualStyleBackColor = True
+        '
+        'DataGridView1
+        '
+        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DataGridView1.Location = New System.Drawing.Point(100, 80)
+        Me.DataGridView1.Name = "DataGridView1"
+        Me.DataGridView1.Size = New System.Drawing.Size(581, 80)
+        Me.DataGridView1.TabIndex = 2
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 17.0!, System.Drawing.FontStyle.Bold)
+        Me.Label7.ForeColor = System.Drawing.Color.DodgerBlue
+        Me.Label7.Location = New System.Drawing.Point(211, 36)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(337, 29)
+        Me.Label7.TabIndex = 1
+        Me.Label7.Text = "Afficher un emploi du temps"
+        '
+        'classRoomAddField
+        '
+        Me.classRoomAddField.Location = New System.Drawing.Point(381, 51)
+        Me.classRoomAddField.Name = "classRoomAddField"
+        Me.classRoomAddField.Size = New System.Drawing.Size(120, 20)
+        Me.classRoomAddField.TabIndex = 6
+        '
+        'BackFromAddItem
+        '
+        Me.BackFromAddItem.Location = New System.Drawing.Point(13, 16)
+        Me.BackFromAddItem.Name = "BackFromAddItem"
+        Me.BackFromAddItem.Size = New System.Drawing.Size(75, 23)
+        Me.BackFromAddItem.TabIndex = 6
+        Me.BackFromAddItem.Text = "Retour"
+        Me.BackFromAddItem.UseVisualStyleBackColor = True
+        '
+        'ShowItemsPanel
+        '
+        Me.ShowItemsPanel.Controls.Add(Me.BackFromShowItems)
+        Me.ShowItemsPanel.Controls.Add(Me.Label23)
+        Me.ShowItemsPanel.Controls.Add(Me.Label22)
+        Me.ShowItemsPanel.Controls.Add(Me.label21)
+        Me.ShowItemsPanel.Controls.Add(Me.dgvProfs)
+        Me.ShowItemsPanel.Controls.Add(Me.dgvSubjects)
+        Me.ShowItemsPanel.Controls.Add(Me.dgvClasses)
+        Me.ShowItemsPanel.Location = New System.Drawing.Point(9, 9)
+        Me.ShowItemsPanel.Name = "ShowItemsPanel"
+        Me.ShowItemsPanel.Size = New System.Drawing.Size(825, 395)
+        Me.ShowItemsPanel.TabIndex = 12
+        '
+        'dgvClasses
+        '
+        Me.dgvClasses.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvClasses.Location = New System.Drawing.Point(38, 96)
+        Me.dgvClasses.Name = "dgvClasses"
+        Me.dgvClasses.Size = New System.Drawing.Size(201, 150)
+        Me.dgvClasses.TabIndex = 0
+        '
+        'dgvSubjects
+        '
+        Me.dgvSubjects.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvSubjects.Location = New System.Drawing.Point(324, 96)
+        Me.dgvSubjects.Name = "dgvSubjects"
+        Me.dgvSubjects.Size = New System.Drawing.Size(201, 150)
+        Me.dgvSubjects.TabIndex = 1
+        '
+        'dgvProfs
+        '
+        Me.dgvProfs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvProfs.Location = New System.Drawing.Point(588, 96)
+        Me.dgvProfs.Name = "dgvProfs"
+        Me.dgvProfs.Size = New System.Drawing.Size(201, 150)
+        Me.dgvProfs.TabIndex = 2
+        '
+        'label21
+        '
+        Me.label21.AutoSize = True
+        Me.label21.Location = New System.Drawing.Point(38, 68)
+        Me.label21.Name = "label21"
+        Me.label21.Size = New System.Drawing.Size(43, 13)
+        Me.label21.TabIndex = 3
+        Me.label21.Text = "Classes"
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.Location = New System.Drawing.Point(321, 68)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(47, 13)
+        Me.Label22.TabIndex = 4
+        Me.Label22.Text = "Matières"
+        '
+        'Label23
+        '
+        Me.Label23.AutoSize = True
+        Me.Label23.Location = New System.Drawing.Point(585, 68)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(62, 13)
+        Me.Label23.TabIndex = 5
+        Me.Label23.Text = "Professeurs"
+        '
+        'BackFromShowItems
+        '
+        Me.BackFromShowItems.Location = New System.Drawing.Point(10, 16)
+        Me.BackFromShowItems.Name = "BackFromShowItems"
+        Me.BackFromShowItems.Size = New System.Drawing.Size(75, 23)
+        Me.BackFromShowItems.TabIndex = 6
+        Me.BackFromShowItems.Text = "Retour"
+        Me.BackFromShowItems.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Gainsboro
-        Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.ClientSize = New System.Drawing.Size(814, 619)
+        Me.Controls.Add(Me.ShowItemsPanel)
+        Me.Controls.Add(Me.edtPannel)
+        Me.Controls.Add(Me.AddItemPannel)
+        Me.Controls.Add(Me.HomePanel)
+        Me.Controls.Add(Me.AddEDTPannel)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Panel1)
         Me.Name = "Form1"
@@ -145,6 +782,28 @@ Partial Class Form1
         Me.Panel1.PerformLayout()
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
+        Me.HomePanel.ResumeLayout(False)
+        Me.HomePanel.PerformLayout()
+        Me.AddItemPannel.ResumeLayout(False)
+        Me.AddItemPannel.PerformLayout()
+        Me.AddClassPannel.ResumeLayout(False)
+        Me.AddClassPannel.PerformLayout()
+        Me.AddProfPanel.ResumeLayout(False)
+        Me.AddProfPanel.PerformLayout()
+        Me.AddSubjectPannel.ResumeLayout(False)
+        Me.AddSubjectPannel.PerformLayout()
+        CType(Me.nuTotalHours, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.AddEDTPannel.ResumeLayout(False)
+        Me.AddEDTPannel.PerformLayout()
+        Me.edtPannel.ResumeLayout(False)
+        Me.edtPannel.PerformLayout()
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.classRoomAddField, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ShowItemsPanel.ResumeLayout(False)
+        Me.ShowItemsPanel.PerformLayout()
+        CType(Me.dgvClasses, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvSubjects, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvProfs, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -158,4 +817,62 @@ Partial Class Form1
     Friend WithEvents Panel2 As Panel
     Friend WithEvents Label3 As Label
     Friend WithEvents Label4 As Label
+    Friend WithEvents HomePanel As Panel
+    Friend WithEvents Label5 As Label
+    Friend WithEvents listEDTButton As Button
+    Friend WithEvents editEDTButton As Button
+    Friend WithEvents addEDTButton As Button
+    Friend WithEvents deleteEDTButton As Button
+    Friend WithEvents AddEDTPannel As Panel
+    Friend WithEvents Label6 As Label
+    Friend WithEvents edtPannel As Panel
+    Friend WithEvents Label7 As Label
+    Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents Label11 As Label
+    Friend WithEvents cbCreneaux As ComboBox
+    Friend WithEvents cbSubjects As ComboBox
+    Friend WithEvents cbDays As ComboBox
+    Friend WithEvents cbWeeks As ComboBox
+    Friend WithEvents Label10 As Label
+    Friend WithEvents Label9 As Label
+    Friend WithEvents Label8 As Label
+    Friend WithEvents cbClasses As ComboBox
+    Friend WithEvents Label12 As Label
+    Friend WithEvents Button1 As Button
+    Friend WithEvents back_From_AddEDT As Button
+    Friend WithEvents backFromShowEDT As Button
+    Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
+    Friend WithEvents AddSubjectButton As Button
+    Friend WithEvents Button2 As Button
+    Friend WithEvents AddItemPannel As Panel
+    Friend WithEvents cbItemToAdd As ComboBox
+    Friend WithEvents ItemToAddConfirmButton As Button
+    Friend WithEvents AddSubjectPannel As Panel
+    Friend WithEvents Label15 As Label
+    Friend WithEvents Label14 As Label
+    Friend WithEvents Label13 As Label
+    Friend WithEvents AddClassPannel As Panel
+    Friend WithEvents nuTotalHours As NumericUpDown
+    Friend WithEvents cbTeacher As ComboBox
+    Friend WithEvents subjectNameField As TextBox
+    Friend WithEvents Label18 As Label
+    Friend WithEvents classNameAddField As TextBox
+    Friend WithEvents Label17 As Label
+    Friend WithEvents Label16 As Label
+    Friend WithEvents AddProfPanel As Panel
+    Friend WithEvents profPhoneAddField As TextBox
+    Friend WithEvents profNameAddField As TextBox
+    Friend WithEvents Label20 As Label
+    Friend WithEvents Label19 As Label
+    Friend WithEvents confirmAddItemButton As Button
+    Friend WithEvents classRoomAddField As NumericUpDown
+    Friend WithEvents BackFromAddItem As Button
+    Friend WithEvents ShowItemsPanel As Panel
+    Friend WithEvents dgvClasses As DataGridView
+    Friend WithEvents Label23 As Label
+    Friend WithEvents Label22 As Label
+    Friend WithEvents label21 As Label
+    Friend WithEvents dgvProfs As DataGridView
+    Friend WithEvents dgvSubjects As DataGridView
+    Friend WithEvents BackFromShowItems As Button
 End Class
