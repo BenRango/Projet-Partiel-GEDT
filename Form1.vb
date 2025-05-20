@@ -1,13 +1,16 @@
 ﻿Imports System.Data.OleDb
 Imports System.Linq.Expressions
+Imports System.Runtime.InteropServices
 Imports System.Security.Cryptography
 Imports System.Text
 Imports System.Windows.Forms
 Imports Microsoft.VisualBasic.Logging
 
+
 Public Class Form1
-    Dim c As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.16.0;Data Source=C:\Users\Élie N'srango\OneDrive\Documentos\gedt.accdb;")
-    Function GetClassRooms()
+    Dim c As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.16.0;Data Source=..\..\gedt.accdb;")
+    Dim editType As Form2.TypeElement
+    Public Function GetClassRooms()
         Try
             Connexion()
             Dim dt As New DataTable
@@ -61,7 +64,7 @@ Public Class Form1
         Next
         panel.Visible = True
     End Sub
-    Sub HideChildPanelsExcept(parent As Control, exceptionPanel As Panel)
+    Public Sub HideChildPanelsExcept(parent As Control, exceptionPanel As Panel)
         For Each ctrl As Control In parent.Controls
             If TypeOf ctrl Is Panel Then
                 If Not ctrl.Equals(exceptionPanel) Then
@@ -73,6 +76,7 @@ Public Class Form1
             End If
         Next
     End Sub
+
 
     Public Function HashSHA256(input As String) As String
         Using sha256 As SHA256 = SHA256.Create()
@@ -87,25 +91,41 @@ Public Class Form1
     End Function
     Function ConflitHoraire() As Boolean
         Connexion()
-        Dim cmd As New OleDbCommand("
+
+        Dim profIdCmd As New OleDbCommand("SELECT professor_id FROM SUBJECT WHERE id = ?", c)
+        profIdCmd.Parameters.AddWithValue("?", cbSubjects.SelectedValue)
+        Dim professorId As Integer = CInt(profIdCmd.ExecuteScalar())
+
+        MsgBox($"ProfesseurID : {professorId}")
+
+        Dim cmd As New OleDbCommand($"
         SELECT COUNT(*) FROM emploiDuTemps
         WHERE day_id = ?
         AND week_id = ?
         AND creneau_id = ?
         AND (class_id = ? OR subject_id IN (
-            SELECT id FROM SUBJECT WHERE professor_id = ?))", c)
+            SELECT id FROM SUBJECT WHERE professor_id = {professorId}
+        ))", c)
 
-        cmd.Parameters.AddWithValue("?", cbDays.SelectedValue)
-        cmd.Parameters.AddWithValue("?", cbWeeks.SelectedValue)
-        cmd.Parameters.AddWithValue("?", cbCreneaux.SelectedValue)
-        cmd.Parameters.AddWithValue("?", cbClasses.SelectedValue)
-        cmd.Parameters.AddWithValue("?", cbSubjects.SelectedValue)
+        cmd.Parameters.AddWithValue("?", cbDays.SelectedValue)       ' 1. day_id
+        cmd.Parameters.AddWithValue("?", cbWeeks.SelectedValue)      ' 2. week_id
+        cmd.Parameters.AddWithValue("?", cbCreneaux.SelectedValue)   ' 3. creneau_id
+        cmd.Parameters.AddWithValue("?", cbClasses.SelectedValue)    ' 4. class_id
 
-        Dim count As Integer = cmd.ExecuteScalar()
+        'Dim debugSql As String = "Paramètres passés à la requête :" & vbCrLf
+        'For i As Integer = 0 To cmd.Parameters.Count - 1
+        '    debugSql &= "Paramètre " & (i + 1) & " : " & cmd.Parameters(i).Value.ToString() & vbCrLf
+        'Next
+        'MsgBox(debugSql, MsgBoxStyle.Information, "Debug SQL")
+
+        Dim count As Integer = CInt(cmd.ExecuteScalar())
+        MsgBox("Conflits détectés : " & count)
+
         c.Close()
 
         Return count > 0
     End Function
+
     Function AddSubject()
         Connexion()
         If c.State <> ConnectionState.Open Then
@@ -118,7 +138,7 @@ Public Class Form1
         sql.Parameters.AddWithValue("@name", subjectNameField.Text.Trim())
         sql.Parameters.AddWithValue("@leftHours", nuTotalHours.Value)
         sql.Parameters.AddWithValue("@totalHours", nuTotalHours.Value)
-        sql.Parameters.AddWithValue("@teacher", cbTeacher.SelectedIndex)
+        sql.Parameters.AddWithValue("@teacher", cbTeacher.SelectedValue)
         Dim result As Integer = sql.ExecuteNonQuery()
         AddSubjectPannel.Visible = False
         Return result > 0
@@ -158,7 +178,7 @@ Public Class Form1
         AddProfPanel.Visible = False
         Return result > 0
     End Function
-    Sub LoadComboBoxes()
+    Public Sub LoadComboBoxes()
         If c.State <> ConnectionState.Open Then
             c.Open()
         End If
@@ -169,6 +189,12 @@ Public Class Form1
         cbClasses.DisplayMember = "class_name"
         cbClasses.ValueMember = "id"
 
+        cbClassSelector.DataSource = dtClasses
+        cbClassSelector.DisplayMember = "class_name"
+        cbClassSelector.ValueMember = "id"
+
+
+
         Dim dtSubjects As New DataTable
         da = New OleDbDataAdapter("SELECT id, subject_name FROM SUBJECT", c)
         da.Fill(dtSubjects)
@@ -176,12 +202,18 @@ Public Class Form1
         cbSubjects.DisplayMember = "subject_name"
         cbSubjects.ValueMember = "id"
 
+
         Dim dtWeeks As New DataTable
         da = New OleDbDataAdapter("SELECT id, week_no FROM WEEK", c)
         da.Fill(dtWeeks)
         cbWeeks.DataSource = dtWeeks
         cbWeeks.DisplayMember = "week_no"
         cbWeeks.ValueMember = "id"
+
+        cbWeekSelector.DataSource = dtWeeks
+        cbWeekSelector.DisplayMember = "week_no"
+        cbWeekSelector.ValueMember = "id"
+
 
         Dim dtDays As New DataTable
         da = New OleDbDataAdapter("SELECT id, day_label FROM DAYS", c)
@@ -199,6 +231,7 @@ Public Class Form1
 
         c.Close()
     End Sub
+
     Sub AddWeeks(c As OleDbConnection)
         If c.State <> ConnectionState.Open Then
             c.Open()
@@ -253,7 +286,7 @@ Public Class Form1
     End Sub
     Private Sub ChargerEmploiDuTemps()
         Dim requete As String = "
-        SELECT 
+        SELECT emploiDuTemps.N° As ID,
             WEEK.week_no AS [No Week],
             DAYS.day_label AS Jour ,
             CRENEAU.label AS Créneau,
@@ -277,6 +310,32 @@ Public Class Form1
         DataGridView1.DataSource = dt
     End Sub
 
+    Sub LoadItemsDataGridViews()
+        Connexion()
+        If c.State <> ConnectionState.Open Then
+            c.Open()
+        End If
+        Dim dtClasses = New DataTable
+        Dim da As New OleDbDataAdapter("SELECT  id As [ID], class_name AS Nom, class_room AS [SALLE] FROM CLASS", c)
+        da.Fill(dtClasses)
+        dgvClasses.DataSource = dtClasses
+
+        Dim dtSubjects = New DataTable
+        Dim requete As String = "
+            SELECT SUBJECT.id As [ID], subject_name AS Nom, subject_hours_left AS [Heures restantes], PROFESSOR.prof_name AS Enseignant 
+            FROM (SUBJECT
+            INNER JOIN PROFESSOR ON SUBJECT.professor_id = PROFESSOR.id)                                              
+"
+        da = New OleDbDataAdapter(requete, c)
+        da.Fill(dtSubjects)
+        dgvSubjects.DataSource = dtSubjects
+
+        Dim dtProfs = New DataTable
+        da = New OleDbDataAdapter("SELECT  id As [ID], prof_name AS Nom, phone AS [Téléphone] FROM PROFESSOR", c)
+        da.Fill(dtProfs)
+        dgvProfs.DataSource = dtProfs
+        c.Close()
+    End Sub
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Panel1.Visible = True
         Panel2.Visible = True
@@ -309,7 +368,7 @@ Public Class Form1
         End While
         rCreneaux.Close()
 
-        ' Préparer le tableau
+
         tlp.Controls.Clear()
         tlp.ColumnCount = jours.Count + 1
         tlp.RowCount = creneaux.Count + 1
@@ -323,7 +382,7 @@ Public Class Form1
         Next
 
         For i = 0 To tlp.RowCount - 1
-            tlp.RowStyles.Add(New RowStyle(SizeType.Absolute, 64)) ' hauteur fixe
+            tlp.RowStyles.Add(New RowStyle(SizeType.Absolute, 64))
         Next
 
         ' En-têtes
@@ -426,14 +485,17 @@ Public Class Form1
     End Sub
 
     Private Sub EditEDTButton_Click(sender As Object, e As EventArgs) Handles editEDTButton.Click
+        ChargerEmploiDuTemps()
+        DrawPanel(EditOrDeleteEDTPanel)
     End Sub
 
-    Private Sub DeleteEDTButton_Click(sender As Object, e As EventArgs) Handles deleteEDTButton.Click
+    Private Sub DeleteEDTButton_Click(sender As Object, e As EventArgs)
 
     End Sub
 
     Private Sub ListEDTButton_Click(sender As Object, e As EventArgs) Handles listEDTButton.Click
-        LoadEDTInGrid(TableLayoutPanel1, 3, 2)
+        HideChildPanelsExcept(edtPannel, EDTOptionsSelectorPanel)
+
         DrawPanel(edtPannel)
         ChargerEmploiDuTemps()
     End Sub
@@ -487,6 +549,7 @@ Public Class Form1
     End Sub
 
     Private Sub ItemToAddConfirmButton_Click(sender As Object, e As EventArgs) Handles ItemToAddConfirmButton.Click
+        confirmAddItemButton.Enabled = True
         Select Case cbItemToAdd.SelectedItem.ToString()
             Case "MATIÈRE"
                 Connexion()
@@ -503,6 +566,7 @@ Public Class Form1
                 cbTeacher.ValueMember = "id"
                 c.Close()
                 HideChildPanelsExcept(AddItemPannel, AddSubjectPannel)
+
             Case "PROFESSEUR"
                 HideChildPanelsExcept(AddItemPannel, AddProfPanel)
             Case "CLASSE"
@@ -562,4 +626,506 @@ Public Class Form1
     Private Sub BackFromShowItems_Click(sender As Object, e As EventArgs) Handles BackFromShowItems.Click
         DrawPanel(HomePanel)
     End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        LoadItemsDataGridViews()
+        DrawPanel(ShowItemsPanel)
+    End Sub
+
+    Private Sub selectEDTOptionsButton_Click(sender As Object, e As EventArgs) Handles selectEDTOptionsButton.Click
+        LoadEDTInGrid(TableLayoutPanel1, cbClassSelector.SelectedValue, cbWeekSelector.SelectedValue)
+        HideChildPanelsExcept(edtPannel, weekEDTSubPanel)
+        TableLayoutPanel1.Visible = True
+    End Sub
+
+    Private Sub dgvSubjects_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSubjects.CellClick
+        ' Vérifier que le clic n'est pas sur l'en-tête
+        If e.RowIndex >= 0 Then
+            ' Récupérer la ligne sélectionnée
+            Dim selectedRow As DataGridViewRow = dgvSubjects.Rows(e.RowIndex)
+
+            ' Exemple: Afficher les informations de la matière sélectionnée
+            Dim subjectName As String = selectedRow.Cells("Nom").Value.ToString()
+            Dim remainingHours As String = selectedRow.Cells("Heures restantes").Value.ToString()
+            Dim teacher As String = selectedRow.Cells("Enseignant").Value.ToString()
+
+            MessageBox.Show($"Matière: {subjectName}" & vbCrLf &
+                           $"Heures restantes: {remainingHours}" & vbCrLf &
+                           $"Enseignant: {teacher}", "Détails de la matière")
+
+            ' Vous pouvez aussi ouvrir un formulaire d'édition ici
+            ' EditSubject(subjectName, remainingHours, teacher)
+        End If
+    End Sub
+    Sub EditClass(id As Integer, name As String, room As Integer)
+        Try
+            Connexion()
+            If c.State <> ConnectionState.Open Then
+                c.Open()
+            End If
+            Dim sql As New OleDb.OleDbCommand("UPDATE CLASS SET class_name = @name, class_room = @room WHERE id = @id", c)
+            sql.Parameters.AddWithValue("@name", name)
+            sql.Parameters.AddWithValue("@room", room)
+            sql.Parameters.AddWithValue("@id", id)
+
+            Dim result As Integer = sql.ExecuteNonQuery()
+            If result > 0 Then
+                MsgBox("Classe mise à jour avec succès.")
+            Else
+                MsgBox("Erreur lors de la mise à jour de la classe.", MsgBoxStyle.Critical)
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
+    Sub EditSubject(id As Integer, name As String, hoursLeft As String, teacher As String)
+        Try
+            Connexion()
+            If c.State <> ConnectionState.Open Then
+                c.Open()
+            End If
+            Dim sql As New OleDb.OleDbCommand("UPDATE SUBJECT SET subject_name = @name, subject_hours_left = @hoursLeft, professor_id = @teacher WHERE id = @id", c)
+            sql.Parameters.AddWithValue("@name", name)
+            sql.Parameters.AddWithValue("@hoursLeft", hoursLeft)
+            sql.Parameters.AddWithValue("@teacher", teacher)
+            sql.Parameters.AddWithValue("@id", id)
+
+            Dim result As Integer = sql.ExecuteNonQuery()
+            If result > 0 Then
+                MsgBox("Matière mise à jour avec succès.")
+            Else
+                MsgBox("Erreur lors de la mise à jour de la matière.", MsgBoxStyle.Critical)
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
+    Sub EditProfessor(id As Integer, name As String, phone As String)
+        Try
+            Connexion()
+            If c.State <> ConnectionState.Open Then
+                c.Open()
+            End If
+            Dim sql As New OleDb.OleDbCommand("UPDATE PROFESSOR SET prof_name = @name, phone = @phone WHERE id = @id", c)
+            sql.Parameters.AddWithValue("@name", name)
+            sql.Parameters.AddWithValue("@phone", phone)
+            sql.Parameters.AddWithValue("@id", id)
+
+            Dim result As Integer = sql.ExecuteNonQuery()
+            If result > 0 Then
+                MsgBox("Professeur mis à jour avec succès.")
+            Else
+                MsgBox("Erreur lors de la mise à jour du professeur.", MsgBoxStyle.Critical)
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
+    Sub DeleteClass(id As Integer)
+        Try
+            Connexion()
+            If c.State <> ConnectionState.Open Then
+                c.Open()
+            End If
+            Dim sql As New OleDb.OleDbCommand("DELETE FROM CLASS WHERE id = @id", c)
+            sql.Parameters.AddWithValue("@id", id)
+
+            Dim result As Integer = sql.ExecuteNonQuery()
+            If result > 0 Then
+                MsgBox("Classe supprimée avec succès.")
+            Else
+                MsgBox("Erreur lors de la suppression de la classe.", MsgBoxStyle.Critical)
+            End If
+        Catch ex As Exception
+            MsgBox($"Erreur : {ex.Message}", MsgBoxStyle.Critical)
+        End Try
+    End Sub
+    Sub DeleteSubject(id As Integer)
+        Try
+            Connexion()
+            If c.State <> ConnectionState.Open Then
+                c.Open()
+            End If
+            Dim sql As New OleDb.OleDbCommand("DELETE FROM SUUJECT WHERE id = @id", c)
+            sql.Parameters.AddWithValue("@id", id)
+
+            Dim result As Integer = sql.ExecuteNonQuery()
+            If result > 0 Then
+                MsgBox("Discipline supprimée avec succès.")
+            Else
+                MsgBox("Erreur lors de la suppression de la discipline.", MsgBoxStyle.Critical)
+            End If
+        Catch ex As Exception
+            MsgBox($"Erreur : {ex.Message}", MsgBoxStyle.Critical)
+        End Try
+    End Sub
+
+    Sub DeleteProfessor(id As Integer)
+        Try
+            Connexion()
+            If c.State <> ConnectionState.Open Then
+                c.Open()
+            End If
+            Dim sql As New OleDb.OleDbCommand("DELETE FROM PROFESSOR WHERE id = @id", c)
+            sql.Parameters.AddWithValue("@id", id)
+
+            Dim result As Integer = sql.ExecuteNonQuery()
+            If result > 0 Then
+                MsgBox("Professeur supprimée avec succès.")
+            Else
+                MsgBox("Erreur lors de la suppression du professeur.", MsgBoxStyle.Critical)
+            End If
+        Catch ex As Exception
+            MsgBox($"Erreur : {ex.Message}", MsgBoxStyle.Critical)
+        End Try
+    End Sub
+    Private Sub DataGridView1_MouseClick(sender As Object, e As MouseEventArgs) Handles DataGridView1.MouseClick
+        If e.Button = MouseButtons.Right Then
+            Dim hitTestInfo = DataGridView1.HitTest(e.X, e.Y)
+            If hitTestInfo.RowIndex >= 0 Then
+                DataGridView1.ClearSelection()
+                DataGridView1.Rows(hitTestInfo.RowIndex).Selected = True
+                ContextMenuStrip1.Show(DataGridView1, e.Location)
+                editType = Form2.TypeElement.EDT
+            End If
+        End If
+    End Sub
+    Private Sub dgvSubjects_MouseClick(sender As Object, e As MouseEventArgs) Handles dgvSubjects.MouseClick
+        If e.Button = MouseButtons.Right Then
+            Dim hitTestInfo = dgvSubjects.HitTest(e.X, e.Y)
+            If hitTestInfo.RowIndex >= 0 Then
+                dgvSubjects.ClearSelection()
+                dgvSubjects.Rows(hitTestInfo.RowIndex).Selected = True
+                ContextMenuStrip1.Show(dgvSubjects, e.Location)
+                editType = Form2.TypeElement.Subject
+            End If
+        End If
+    End Sub
+    Private Sub dgvClass_MouseClick(sender As Object, e As MouseEventArgs) Handles dgvClasses.MouseClick
+        If e.Button = MouseButtons.Right Then
+            Dim hitTestInfo = dgvClasses.HitTest(e.X, e.Y)
+            If hitTestInfo.RowIndex >= 0 Then
+                dgvClasses.ClearSelection()
+                dgvClasses.Rows(hitTestInfo.RowIndex).Selected = True
+                ContextMenuStrip1.Show(dgvClasses, e.Location)
+                editType = Form2.TypeElement.Class
+            End If
+        End If
+    End Sub
+
+    Private Sub dgvProfs_MouseClick(sender As Object, e As MouseEventArgs) Handles dgvProfs.MouseClick
+        If e.Button = MouseButtons.Right Then
+            Dim hitTestInfo = dgvProfs.HitTest(e.X, e.Y)
+            If hitTestInfo.RowIndex >= 0 Then
+                dgvProfs.ClearSelection()
+                dgvProfs.Rows(hitTestInfo.RowIndex).Selected = True
+                ContextMenuStrip1.Show(dgvProfs, e.Location)
+                editType = Form2.TypeElement.Professor
+            End If
+        End If
+    End Sub
+
+    Function FindDayByLabel(label As String)
+        Connexion()
+        Dim cmd As New OleDbCommand("SELECT id FROM DAYS WHERE day_label = ?", c)
+        cmd.Parameters.AddWithValue("?", label)
+        Dim reader As OleDbDataReader = cmd.ExecuteReader()
+        If reader.Read() Then
+            MsgBox($"ID du jour '{label}': {reader("id")}")
+            Return reader("id")
+        End If
+        reader.Close()
+        c.Close()
+        Return Nothing
+    End Function
+    Function FindCreneauByLabel(label As String)
+        Connexion()
+        Dim cmd As New OleDbCommand("SELECT id FROM CRENEAU WHERE label = ?", c)
+        cmd.Parameters.AddWithValue("?", label)
+        Dim reader As OleDbDataReader = cmd.ExecuteReader()
+        If reader.Read() Then
+            MsgBox($"ID du créneau '{label}': {reader("id")}")
+            Return reader("id")
+        End If
+        reader.Close()
+        c.Close()
+        Return Nothing
+    End Function
+    Function FindClassByLabel(label As String)
+        Connexion()
+        Dim cmd As New OleDbCommand("SELECT id FROM CLASS WHERE class_name = ?", c)
+        cmd.Parameters.AddWithValue("?", label)
+        Dim reader As OleDbDataReader = cmd.ExecuteReader()
+        If reader.Read() Then
+            MsgBox($"ID de la classe '{label}': {reader("id")}")
+            Return reader("id")
+        End If
+        reader.Close()
+        c.Close()
+        Return Nothing
+    End Function
+
+    Function FindSubjectByLabel(label As String)
+        Connexion()
+        Dim cmd As New OleDbCommand("SELECT id FROM SUBJECT WHERE subject_name = ?", c)
+        cmd.Parameters.AddWithValue("?", label)
+        Dim reader As OleDbDataReader = cmd.ExecuteReader()
+        If reader.Read() Then
+            MsgBox($"ID de la matière '{label}': {reader("id")}")
+            Return reader("id")
+        End If
+        reader.Close()
+        c.Close()
+        Return Nothing
+    End Function
+    Function FindWeekByNo(weekNo As String)
+        Connexion()
+        Dim cmd As New OleDbCommand("SELECT id FROM WEEK WHERE week_no = ?", c)
+        cmd.Parameters.AddWithValue("?", weekNo)
+        Dim reader As OleDbDataReader = cmd.ExecuteReader()
+        If reader.Read() Then
+            MsgBox($"ID de la semaine '{weekNo}': {reader("id")}")
+            Return reader("id")
+        End If
+        reader.Close()
+        c.Close()
+        Return Nothing
+    End Function
+
+    Private Sub EditToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditerToolStripMenuItem.Click
+        If dgvSubjects.SelectedRows.Count = 0 And dgvProfs.SelectedRows.Count = 0 And dgvClasses.SelectedRows.Count Then Exit Sub
+
+        Try
+            Select Case editType
+                Case Form2.TypeElement.EDT
+                    LoadComboBoxes()
+                    Dim selectedRow As DataGridViewRow = DataGridView1.SelectedRows(0)
+                    If selectedRow.Cells("No Week").Value Is Nothing OrElse
+                   selectedRow.Cells("Jour").Value Is Nothing OrElse
+                   selectedRow.Cells("Créneau").Value Is Nothing OrElse
+                   selectedRow.Cells("Classe").Value Is Nothing OrElse
+                   selectedRow.Cells("Matière").Value Is Nothing Then
+                        MessageBox.Show("Données incomplètes pour cet emploi du temps.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                        Return
+                    End If
+                    Using editForm As New Form2()
+                        editForm.type = Form2.TypeElement.EDT
+                        editForm.WeekID = CInt(FindWeekByNo(selectedRow.Cells("No Week").Value))
+                        editForm.CreneauID = CInt(FindCreneauByLabel(selectedRow.Cells("Créneau").Value))
+                        editForm.ClassID = CInt(FindClassByLabel(selectedRow.Cells("Classe").Value))
+                        editForm.DayID = CInt(FindDayByLabel(selectedRow.Cells("Jour").Value))
+                        editForm.SubjectId = CInt(FindSubjectByLabel(selectedRow.Cells("Matière").Value))
+                        If editForm.ShowDialog() = DialogResult.OK Then
+                            LoadItemsDataGridViews()
+                        End If
+                    End Using
+                    Using editForm As New Form2()
+                        editForm.type = Form2.TypeElement.EDT
+                        If editForm.ShowDialog() = DialogResult.OK Then
+                            LoadItemsDataGridViews()
+                        End If
+                    End Using
+                Case Form2.TypeElement.Class
+                    MsgBox("On va modifier une classe")
+                    Dim selectedRow As DataGridViewRow = dgvClasses.SelectedRows(0)
+                    If selectedRow.Cells("ID").Value Is Nothing OrElse
+                   selectedRow.Cells("Nom").Value Is Nothing OrElse
+                   selectedRow.Cells("SALLE").Value Is Nothing Then
+                        MessageBox.Show("Données incomplètes pour cette matière.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                        Return
+                    End If
+                    Using editForm As New Form2()
+                        editForm.type = Form2.TypeElement.Class
+                        editForm.ClassID = CInt(selectedRow.Cells("ID").Value)
+                        editForm.txtClassName.Text = selectedRow.Cells("Nom").Value.ToString()
+                        editForm.classRoomAddField.Value = CInt(selectedRow.Cells("SALLE").Value)
+                        If editForm.ShowDialog() = DialogResult.OK Then
+                            EditClass(editForm.ClassID,
+                                  editForm.txtClassName.Text,
+                                  editForm.classRoomAddField.Value)
+                            LoadItemsDataGridViews()
+                        End If
+                    End Using
+                Case Form2.TypeElement.Subject
+                    Dim selectedRow As DataGridViewRow = dgvSubjects.SelectedRows(0)
+
+                    ' Vérification des valeurs
+                    If selectedRow.Cells("id").Value Is Nothing OrElse
+                   selectedRow.Cells("Nom").Value Is Nothing OrElse
+                   selectedRow.Cells("Heures restantes").Value Is Nothing Then
+                        MessageBox.Show("Données incomplètes pour cette matière.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                        Return
+                    End If
+
+                    ' Créer et configurer le formulaire d'édition
+                    Using editForm As New Form2()
+                        ' Passer les valeurs actuelles
+                        editForm.type = Form2.TypeElement.Subject
+                        editForm.SubjectId = CInt(selectedRow.Cells("id").Value)
+                        editForm.SubjectName = selectedRow.Cells("Nom").Value.ToString()
+                        editForm.HoursLeft = CInt(selectedRow.Cells("Heures restantes").Value)
+
+                        ' Récupérer l'ID du professeur actuel
+                        Dim currentProfId As Integer = GetCurrentProfessorId(editForm.SubjectId)
+                        editForm.ProfessorId = currentProfId
+
+                        ' Afficher le formulaire comme dialogue modal
+                        If editForm.ShowDialog() = DialogResult.OK Then
+                            EditSubject(editForm.SubjectId,
+                                  editForm.SubjectName,
+                                  editForm.HoursLeft.ToString(),
+                                  editForm.ProfessorId.ToString())
+                            LoadItemsDataGridViews()
+                        End If
+                    End Using
+
+                Case Form2.TypeElement.Professor
+                    Dim selectedRow As DataGridViewRow = dgvProfs.SelectedRows(0)
+                    If selectedRow.Cells("ID").Value Is Nothing OrElse
+                   selectedRow.Cells("Nom").Value Is Nothing OrElse
+                   selectedRow.Cells("Téléphone").Value Is Nothing Then
+                        MessageBox.Show("Données incomplètes pour cette matière.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                        Return
+                    End If
+                    Using editForm As New Form2()
+                        editForm.type = Form2.TypeElement.Professor
+                        editForm.ProfID = CInt(selectedRow.Cells("ID").Value)
+                        editForm.txtProfName.Text = selectedRow.Cells("Nom").Value.ToString()
+                        editForm.txtProfPhone.Text = selectedRow.Cells("Téléphone").Value.ToString()
+                        If editForm.ShowDialog() = DialogResult.OK Then
+                            EditProfessor(editForm.ProfID,
+                                  editForm.txtProfName.Text,
+                                  editForm.txtProfPhone.Text)
+                            LoadItemsDataGridViews()
+                        End If
+                    End Using
+
+            End Select
+
+
+        Catch ex As Exception
+            MessageBox.Show($"Erreur lors de la modification : {ex.Message}", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Function GetCurrentProfessorId(subjectId As Integer) As Integer
+        Connexion()
+        Try
+            Using cmd As New OleDbCommand("SELECT professor_id FROM SUBJECT WHERE id = ?", c)
+                cmd.Parameters.AddWithValue("?", subjectId)
+                Dim result = cmd.ExecuteScalar()
+                Return If(result IsNot Nothing AndAlso Not IsDBNull(result), CInt(result), -1)
+            End Using
+        Catch ex As Exception
+            Return -1
+        Finally
+            If c.State = ConnectionState.Open Then c.Close()
+        End Try
+    End Function
+    Sub DeleteEdt(id As Integer)
+        Try
+            Connexion()
+            If c.State <> ConnectionState.Open Then
+                c.Open()
+            End If
+
+            MsgBox($"Emploi du temps à supprimer, ID = {id}")
+            Dim sql As New OleDb.OleDbCommand("DELETE FROM emploiDuTemps WHERE [N°] = ?", c)
+            sql.Parameters.AddWithValue("?", id)
+
+            Dim result As Integer = sql.ExecuteNonQuery()
+            If result > 0 Then
+                MsgBox("Emploi du temps supprimé avec succès.")
+            Else
+                MsgBox("Aucun emploi du temps trouvé avec cet ID.", MsgBoxStyle.Exclamation)
+            End If
+        Catch ex As Exception
+            MsgBox($"Erreur : {ex.Message}", MsgBoxStyle.Critical)
+        End Try
+    End Sub
+
+    Private Sub DeleteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SupprimerToolStripMenuItem.Click
+        Select Case editType
+            Case Form2.TypeElement.EDT
+                If DataGridView1.SelectedRows.Count > 0 Then
+                    Dim result As DialogResult = MessageBox.Show("Voulez-vous vraiment supprimer cet emploi du temps?",
+                                                   "Confirmation",
+                                                   MessageBoxButtons.YesNo,
+                                                   MessageBoxIcon.Warning)
+
+                    If result = DialogResult.Yes Then
+                        Dim selectedRow As DataGridViewRow = DataGridView1.SelectedRows(0)
+                        Dim emploiDuTempsId As Integer = CInt(selectedRow.Cells("ID").Value)
+
+                        DeleteEdt(emploiDuTempsId)
+                        ChargerEmploiDuTemps()
+                    End If
+                End If
+            Case Form2.TypeElement.Class
+                If dgvClasses.SelectedRows.Count > 0 Then
+                    Dim result As DialogResult = MessageBox.Show("Voulez-vous vraiment supprimer cette classe?",
+                                                   "Confirmation",
+                                                   MessageBoxButtons.YesNo,
+                                                   MessageBoxIcon.Warning)
+
+                    If result = DialogResult.Yes Then
+                        Dim selectedRow As DataGridViewRow = dgvClasses.SelectedRows(0)
+                        Dim classId As Integer = CInt(selectedRow.Cells("ID").Value)
+
+                        DeleteClass(classId)
+                        LoadItemsDataGridViews()
+                    End If
+                End If
+
+            Case Form2.TypeElement.Professor
+                If dgvProfs.SelectedRows.Count > 0 Then
+                    Dim result As DialogResult = MessageBox.Show("Voulez-vous vraiment supprimer ce professeur?",
+                                                   "Confirmation",
+                                                   MessageBoxButtons.YesNo,
+                                                   MessageBoxIcon.Warning)
+
+                    If result = DialogResult.Yes Then
+                        Dim selectedRow As DataGridViewRow = dgvProfs.SelectedRows(0)
+                        Dim professorId As Integer = CInt(selectedRow.Cells("ID").Value)
+
+                        DeleteProfessor(professorId)
+                        LoadItemsDataGridViews()
+                    End If
+                End If
+
+            Case Form2.TypeElement.Subject
+                ' Vérifier si une ligne est sélectionnée dans le DataGridView des matières
+                If dgvSubjects.SelectedRows.Count > 0 Then
+                    Dim result As DialogResult = MessageBox.Show("Voulez-vous vraiment supprimer cette matière?",
+                                                           "Confirmation",
+                                                           MessageBoxButtons.YesNo,
+                                                           MessageBoxIcon.Warning)
+
+                    If result = DialogResult.Yes Then
+                        Dim selectedRow As DataGridViewRow = dgvSubjects.SelectedRows(0)
+                        Dim subjectId As Integer = CInt(selectedRow.Cells("id").Value)
+
+                        DeleteSubject(subjectId)
+                        LoadItemsDataGridViews()
+                    End If
+                End If
+        End Select
+    End Sub
+
+    Private Sub dgvClasses_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvClasses.CellClick
+        If e.RowIndex >= 0 Then
+            Dim selectedRow As DataGridViewRow = dgvClasses.Rows(e.RowIndex)
+        End If
+    End Sub
+
+    Private Sub BackFromEditOrDeleteEDTPanel_Click(sender As Object, e As EventArgs) Handles BackFromEditOrDeleteEDTPanel.Click
+        DrawPanel(HomePanel)
+    End Sub
+
+    Private Sub cbItemToAdd_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbItemToAdd.SelectedIndexChanged
+        ItemToAddConfirmButton.Enabled = True
+    End Sub
+
+
 End Class
+

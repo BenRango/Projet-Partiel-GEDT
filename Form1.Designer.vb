@@ -22,6 +22,7 @@ Partial Class Form1
     'Ne la modifiez pas à l'aide de l'éditeur de code.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.username_field = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -34,23 +35,12 @@ Partial Class Form1
         Me.HomePanel = New System.Windows.Forms.Panel()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.AddSubjectButton = New System.Windows.Forms.Button()
-        Me.deleteEDTButton = New System.Windows.Forms.Button()
         Me.listEDTButton = New System.Windows.Forms.Button()
         Me.editEDTButton = New System.Windows.Forms.Button()
         Me.addEDTButton = New System.Windows.Forms.Button()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.AddItemPannel = New System.Windows.Forms.Panel()
-        Me.confirmAddItemButton = New System.Windows.Forms.Button()
-        Me.Label18 = New System.Windows.Forms.Label()
-        Me.AddClassPannel = New System.Windows.Forms.Panel()
-        Me.AddProfPanel = New System.Windows.Forms.Panel()
-        Me.profPhoneAddField = New System.Windows.Forms.TextBox()
-        Me.profNameAddField = New System.Windows.Forms.TextBox()
-        Me.Label20 = New System.Windows.Forms.Label()
-        Me.Label19 = New System.Windows.Forms.Label()
-        Me.classNameAddField = New System.Windows.Forms.TextBox()
-        Me.Label17 = New System.Windows.Forms.Label()
-        Me.Label16 = New System.Windows.Forms.Label()
+        Me.BackFromAddItem = New System.Windows.Forms.Button()
         Me.AddSubjectPannel = New System.Windows.Forms.Panel()
         Me.nuTotalHours = New System.Windows.Forms.NumericUpDown()
         Me.cbTeacher = New System.Windows.Forms.ComboBox()
@@ -58,6 +48,18 @@ Partial Class Form1
         Me.Label15 = New System.Windows.Forms.Label()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
+        Me.confirmAddItemButton = New System.Windows.Forms.Button()
+        Me.AddProfPanel = New System.Windows.Forms.Panel()
+        Me.profPhoneAddField = New System.Windows.Forms.TextBox()
+        Me.profNameAddField = New System.Windows.Forms.TextBox()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.AddClassPannel = New System.Windows.Forms.Panel()
+        Me.classRoomAddField = New System.Windows.Forms.NumericUpDown()
+        Me.classNameAddField = New System.Windows.Forms.TextBox()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.Label16 = New System.Windows.Forms.Label()
         Me.ItemToAddConfirmButton = New System.Windows.Forms.Button()
         Me.cbItemToAdd = New System.Windows.Forms.ComboBox()
         Me.AddEDTPannel = New System.Windows.Forms.Panel()
@@ -75,36 +77,49 @@ Partial Class Form1
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.edtPannel = New System.Windows.Forms.Panel()
+        Me.weekEDTSubPanel = New System.Windows.Forms.Panel()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.backFromShowEDT = New System.Windows.Forms.Button()
-        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.Label7 = New System.Windows.Forms.Label()
-        Me.classRoomAddField = New System.Windows.Forms.NumericUpDown()
-        Me.BackFromAddItem = New System.Windows.Forms.Button()
+        Me.EDTOptionsSelectorPanel = New System.Windows.Forms.Panel()
+        Me.selectEDTOptionsButton = New System.Windows.Forms.Button()
+        Me.cbClassSelector = New System.Windows.Forms.ComboBox()
+        Me.cbWeekSelector = New System.Windows.Forms.ComboBox()
         Me.ShowItemsPanel = New System.Windows.Forms.Panel()
-        Me.dgvClasses = New System.Windows.Forms.DataGridView()
-        Me.dgvSubjects = New System.Windows.Forms.DataGridView()
-        Me.dgvProfs = New System.Windows.Forms.DataGridView()
-        Me.label21 = New System.Windows.Forms.Label()
-        Me.Label22 = New System.Windows.Forms.Label()
-        Me.Label23 = New System.Windows.Forms.Label()
         Me.BackFromShowItems = New System.Windows.Forms.Button()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.label21 = New System.Windows.Forms.Label()
+        Me.dgvProfs = New System.Windows.Forms.DataGridView()
+        Me.dgvSubjects = New System.Windows.Forms.DataGridView()
+        Me.dgvClasses = New System.Windows.Forms.DataGridView()
+        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.EditerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SupprimerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EditOrDeleteEDTPanel = New System.Windows.Forms.Panel()
+        Me.BackFromEditOrDeleteEDTPanel = New System.Windows.Forms.Button()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.HomePanel.SuspendLayout()
         Me.AddItemPannel.SuspendLayout()
-        Me.AddClassPannel.SuspendLayout()
-        Me.AddProfPanel.SuspendLayout()
         Me.AddSubjectPannel.SuspendLayout()
         CType(Me.nuTotalHours, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.AddProfPanel.SuspendLayout()
+        Me.AddClassPannel.SuspendLayout()
+        CType(Me.classRoomAddField, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.AddEDTPannel.SuspendLayout()
         Me.edtPannel.SuspendLayout()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.classRoomAddField, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.weekEDTSubPanel.SuspendLayout()
+        Me.EDTOptionsSelectorPanel.SuspendLayout()
         Me.ShowItemsPanel.SuspendLayout()
-        CType(Me.dgvClasses, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.dgvSubjects, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvProfs, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvSubjects, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvClasses, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.ContextMenuStrip1.SuspendLayout()
+        Me.EditOrDeleteEDTPanel.SuspendLayout()
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'username_field
@@ -205,7 +220,6 @@ Partial Class Form1
         Me.HomePanel.BackColor = System.Drawing.Color.White
         Me.HomePanel.Controls.Add(Me.Button2)
         Me.HomePanel.Controls.Add(Me.AddSubjectButton)
-        Me.HomePanel.Controls.Add(Me.deleteEDTButton)
         Me.HomePanel.Controls.Add(Me.listEDTButton)
         Me.HomePanel.Controls.Add(Me.editEDTButton)
         Me.HomePanel.Controls.Add(Me.addEDTButton)
@@ -233,38 +247,29 @@ Partial Class Form1
         Me.AddSubjectButton.Text = "Ajouter une Matière/un Professeur/une Classe"
         Me.AddSubjectButton.UseVisualStyleBackColor = True
         '
-        'deleteEDTButton
-        '
-        Me.deleteEDTButton.Location = New System.Drawing.Point(38, 272)
-        Me.deleteEDTButton.Name = "deleteEDTButton"
-        Me.deleteEDTButton.Size = New System.Drawing.Size(197, 34)
-        Me.deleteEDTButton.TabIndex = 6
-        Me.deleteEDTButton.Text = "Supprimer un Emploi du temps"
-        Me.deleteEDTButton.UseVisualStyleBackColor = True
-        '
         'listEDTButton
         '
-        Me.listEDTButton.Location = New System.Drawing.Point(38, 113)
+        Me.listEDTButton.Location = New System.Drawing.Point(38, 115)
         Me.listEDTButton.Name = "listEDTButton"
-        Me.listEDTButton.Size = New System.Drawing.Size(197, 34)
+        Me.listEDTButton.Size = New System.Drawing.Size(210, 44)
         Me.listEDTButton.TabIndex = 5
         Me.listEDTButton.Text = "Liste des Emplois du temps"
         Me.listEDTButton.UseVisualStyleBackColor = True
         '
         'editEDTButton
         '
-        Me.editEDTButton.Location = New System.Drawing.Point(38, 219)
+        Me.editEDTButton.Location = New System.Drawing.Point(38, 260)
         Me.editEDTButton.Name = "editEDTButton"
-        Me.editEDTButton.Size = New System.Drawing.Size(197, 34)
+        Me.editEDTButton.Size = New System.Drawing.Size(210, 46)
         Me.editEDTButton.TabIndex = 4
-        Me.editEDTButton.Text = "Modifier un Emploi du temps"
+        Me.editEDTButton.Text = "Modifier ou Supprimer un Emploi du temps"
         Me.editEDTButton.UseVisualStyleBackColor = True
         '
         'addEDTButton
         '
-        Me.addEDTButton.Location = New System.Drawing.Point(38, 166)
+        Me.addEDTButton.Location = New System.Drawing.Point(38, 182)
         Me.addEDTButton.Name = "addEDTButton"
-        Me.addEDTButton.Size = New System.Drawing.Size(197, 34)
+        Me.addEDTButton.Size = New System.Drawing.Size(210, 44)
         Me.addEDTButton.TabIndex = 3
         Me.addEDTButton.Text = "Ajouter un Emploi du temps"
         Me.addEDTButton.UseVisualStyleBackColor = True
@@ -296,106 +301,14 @@ Partial Class Form1
         Me.AddItemPannel.Size = New System.Drawing.Size(801, 429)
         Me.AddItemPannel.TabIndex = 11
         '
-        'confirmAddItemButton
+        'BackFromAddItem
         '
-        Me.confirmAddItemButton.Location = New System.Drawing.Point(324, 301)
-        Me.confirmAddItemButton.Name = "confirmAddItemButton"
-        Me.confirmAddItemButton.Size = New System.Drawing.Size(128, 38)
-        Me.confirmAddItemButton.TabIndex = 5
-        Me.confirmAddItemButton.Text = "Ajouter"
-        Me.confirmAddItemButton.UseVisualStyleBackColor = True
-        '
-        'Label18
-        '
-        Me.Label18.AutoSize = True
-        Me.Label18.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label18.ForeColor = System.Drawing.Color.DodgerBlue
-        Me.Label18.Location = New System.Drawing.Point(276, 15)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(249, 21)
-        Me.Label18.TabIndex = 4
-        Me.Label18.Text = "Que souhaiteriez vous ajouter ?"
-        '
-        'AddClassPannel
-        '
-        Me.AddClassPannel.Controls.Add(Me.classRoomAddField)
-        Me.AddClassPannel.Controls.Add(Me.classNameAddField)
-        Me.AddClassPannel.Controls.Add(Me.Label17)
-        Me.AddClassPannel.Controls.Add(Me.Label16)
-        Me.AddClassPannel.Location = New System.Drawing.Point(89, 167)
-        Me.AddClassPannel.Name = "AddClassPannel"
-        Me.AddClassPannel.Size = New System.Drawing.Size(592, 127)
-        Me.AddClassPannel.TabIndex = 3
-        Me.AddClassPannel.Visible = False
-        '
-        'AddProfPanel
-        '
-        Me.AddProfPanel.Controls.Add(Me.profPhoneAddField)
-        Me.AddProfPanel.Controls.Add(Me.profNameAddField)
-        Me.AddProfPanel.Controls.Add(Me.Label20)
-        Me.AddProfPanel.Controls.Add(Me.Label19)
-        Me.AddProfPanel.Location = New System.Drawing.Point(89, 166)
-        Me.AddProfPanel.Name = "AddProfPanel"
-        Me.AddProfPanel.Size = New System.Drawing.Size(598, 128)
-        Me.AddProfPanel.TabIndex = 5
-        Me.AddProfPanel.Visible = False
-        '
-        'profPhoneAddField
-        '
-        Me.profPhoneAddField.Location = New System.Drawing.Point(399, 54)
-        Me.profPhoneAddField.Name = "profPhoneAddField"
-        Me.profPhoneAddField.Size = New System.Drawing.Size(142, 20)
-        Me.profPhoneAddField.TabIndex = 5
-        '
-        'profNameAddField
-        '
-        Me.profNameAddField.Location = New System.Drawing.Point(93, 54)
-        Me.profNameAddField.Name = "profNameAddField"
-        Me.profNameAddField.Size = New System.Drawing.Size(142, 20)
-        Me.profNameAddField.TabIndex = 4
-        '
-        'Label20
-        '
-        Me.Label20.AutoSize = True
-        Me.Label20.Location = New System.Drawing.Point(396, 24)
-        Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(109, 13)
-        Me.Label20.TabIndex = 1
-        Me.Label20.Text = "Numéro de téléphone"
-        '
-        'Label19
-        '
-        Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(90, 24)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(96, 13)
-        Me.Label19.TabIndex = 0
-        Me.Label19.Text = "Nom du professeur"
-        '
-        'classNameAddField
-        '
-        Me.classNameAddField.Location = New System.Drawing.Point(133, 51)
-        Me.classNameAddField.Name = "classNameAddField"
-        Me.classNameAddField.Size = New System.Drawing.Size(142, 20)
-        Me.classNameAddField.TabIndex = 2
-        '
-        'Label17
-        '
-        Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(378, 21)
-        Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(78, 13)
-        Me.Label17.TabIndex = 1
-        Me.Label17.Text = "Salle de classe"
-        '
-        'Label16
-        '
-        Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(130, 21)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(88, 13)
-        Me.Label16.TabIndex = 0
-        Me.Label16.Text = "Nom de la classe"
+        Me.BackFromAddItem.Location = New System.Drawing.Point(13, 16)
+        Me.BackFromAddItem.Name = "BackFromAddItem"
+        Me.BackFromAddItem.Size = New System.Drawing.Size(75, 23)
+        Me.BackFromAddItem.TabIndex = 6
+        Me.BackFromAddItem.Text = "Retour"
+        Me.BackFromAddItem.UseVisualStyleBackColor = True
         '
         'AddSubjectPannel
         '
@@ -460,8 +373,118 @@ Partial Class Form1
         Me.Label13.TabIndex = 0
         Me.Label13.Text = "Nom"
         '
+        'confirmAddItemButton
+        '
+        Me.confirmAddItemButton.Enabled = False
+        Me.confirmAddItemButton.Location = New System.Drawing.Point(324, 301)
+        Me.confirmAddItemButton.Name = "confirmAddItemButton"
+        Me.confirmAddItemButton.Size = New System.Drawing.Size(128, 38)
+        Me.confirmAddItemButton.TabIndex = 5
+        Me.confirmAddItemButton.Text = "Ajouter"
+        Me.confirmAddItemButton.UseVisualStyleBackColor = True
+        '
+        'AddProfPanel
+        '
+        Me.AddProfPanel.Controls.Add(Me.profPhoneAddField)
+        Me.AddProfPanel.Controls.Add(Me.profNameAddField)
+        Me.AddProfPanel.Controls.Add(Me.Label20)
+        Me.AddProfPanel.Controls.Add(Me.Label19)
+        Me.AddProfPanel.Location = New System.Drawing.Point(89, 166)
+        Me.AddProfPanel.Name = "AddProfPanel"
+        Me.AddProfPanel.Size = New System.Drawing.Size(598, 128)
+        Me.AddProfPanel.TabIndex = 5
+        Me.AddProfPanel.Visible = False
+        '
+        'profPhoneAddField
+        '
+        Me.profPhoneAddField.Location = New System.Drawing.Point(399, 54)
+        Me.profPhoneAddField.Name = "profPhoneAddField"
+        Me.profPhoneAddField.Size = New System.Drawing.Size(142, 20)
+        Me.profPhoneAddField.TabIndex = 5
+        '
+        'profNameAddField
+        '
+        Me.profNameAddField.Location = New System.Drawing.Point(93, 54)
+        Me.profNameAddField.Name = "profNameAddField"
+        Me.profNameAddField.Size = New System.Drawing.Size(142, 20)
+        Me.profNameAddField.TabIndex = 4
+        '
+        'Label20
+        '
+        Me.Label20.AutoSize = True
+        Me.Label20.Location = New System.Drawing.Point(396, 24)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(109, 13)
+        Me.Label20.TabIndex = 1
+        Me.Label20.Text = "Numéro de téléphone"
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Location = New System.Drawing.Point(90, 24)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(96, 13)
+        Me.Label19.TabIndex = 0
+        Me.Label19.Text = "Nom du professeur"
+        '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label18.ForeColor = System.Drawing.Color.DodgerBlue
+        Me.Label18.Location = New System.Drawing.Point(276, 15)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(249, 21)
+        Me.Label18.TabIndex = 4
+        Me.Label18.Text = "Que souhaiteriez vous ajouter ?"
+        '
+        'AddClassPannel
+        '
+        Me.AddClassPannel.Controls.Add(Me.classRoomAddField)
+        Me.AddClassPannel.Controls.Add(Me.classNameAddField)
+        Me.AddClassPannel.Controls.Add(Me.Label17)
+        Me.AddClassPannel.Controls.Add(Me.Label16)
+        Me.AddClassPannel.Location = New System.Drawing.Point(89, 167)
+        Me.AddClassPannel.Name = "AddClassPannel"
+        Me.AddClassPannel.Size = New System.Drawing.Size(592, 127)
+        Me.AddClassPannel.TabIndex = 3
+        Me.AddClassPannel.Visible = False
+        '
+        'classRoomAddField
+        '
+        Me.classRoomAddField.Location = New System.Drawing.Point(381, 51)
+        Me.classRoomAddField.Name = "classRoomAddField"
+        Me.classRoomAddField.Size = New System.Drawing.Size(120, 20)
+        Me.classRoomAddField.TabIndex = 6
+        '
+        'classNameAddField
+        '
+        Me.classNameAddField.Location = New System.Drawing.Point(133, 51)
+        Me.classNameAddField.Name = "classNameAddField"
+        Me.classNameAddField.Size = New System.Drawing.Size(142, 20)
+        Me.classNameAddField.TabIndex = 2
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Location = New System.Drawing.Point(378, 21)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(78, 13)
+        Me.Label17.TabIndex = 1
+        Me.Label17.Text = "Salle de classe"
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Location = New System.Drawing.Point(130, 21)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(88, 13)
+        Me.Label16.TabIndex = 0
+        Me.Label16.Text = "Nom de la classe"
+        '
         'ItemToAddConfirmButton
         '
+        Me.ItemToAddConfirmButton.Enabled = False
         Me.ItemToAddConfirmButton.Location = New System.Drawing.Point(496, 68)
         Me.ItemToAddConfirmButton.Name = "ItemToAddConfirmButton"
         Me.ItemToAddConfirmButton.Size = New System.Drawing.Size(75, 23)
@@ -616,15 +639,24 @@ Partial Class Form1
         'edtPannel
         '
         Me.edtPannel.BackColor = System.Drawing.Color.White
-        Me.edtPannel.Controls.Add(Me.TableLayoutPanel1)
+        Me.edtPannel.Controls.Add(Me.weekEDTSubPanel)
         Me.edtPannel.Controls.Add(Me.backFromShowEDT)
-        Me.edtPannel.Controls.Add(Me.DataGridView1)
         Me.edtPannel.Controls.Add(Me.Label7)
+        Me.edtPannel.Controls.Add(Me.EDTOptionsSelectorPanel)
         Me.edtPannel.Location = New System.Drawing.Point(12, 9)
         Me.edtPannel.Name = "edtPannel"
-        Me.edtPannel.Size = New System.Drawing.Size(807, 506)
+        Me.edtPannel.Size = New System.Drawing.Size(801, 545)
         Me.edtPannel.TabIndex = 9
         Me.edtPannel.Visible = False
+        '
+        'weekEDTSubPanel
+        '
+        Me.weekEDTSubPanel.BackColor = System.Drawing.Color.Transparent
+        Me.weekEDTSubPanel.Controls.Add(Me.TableLayoutPanel1)
+        Me.weekEDTSubPanel.Location = New System.Drawing.Point(8, 97)
+        Me.weekEDTSubPanel.Name = "weekEDTSubPanel"
+        Me.weekEDTSubPanel.Size = New System.Drawing.Size(782, 409)
+        Me.weekEDTSubPanel.TabIndex = 5
         '
         'TableLayoutPanel1
         '
@@ -634,8 +666,8 @@ Partial Class Form1
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 137.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 105.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 101.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 128.0!))
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(13, 204)
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 138.0!))
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(40, 46)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 4
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 48.42105!))
@@ -654,14 +686,6 @@ Partial Class Form1
         Me.backFromShowEDT.Text = "Retour"
         Me.backFromShowEDT.UseVisualStyleBackColor = True
         '
-        'DataGridView1
-        '
-        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Location = New System.Drawing.Point(100, 80)
-        Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(581, 80)
-        Me.DataGridView1.TabIndex = 2
-        '
         'Label7
         '
         Me.Label7.AutoSize = True
@@ -673,21 +697,40 @@ Partial Class Form1
         Me.Label7.TabIndex = 1
         Me.Label7.Text = "Afficher un emploi du temps"
         '
-        'classRoomAddField
+        'EDTOptionsSelectorPanel
         '
-        Me.classRoomAddField.Location = New System.Drawing.Point(381, 51)
-        Me.classRoomAddField.Name = "classRoomAddField"
-        Me.classRoomAddField.Size = New System.Drawing.Size(120, 20)
-        Me.classRoomAddField.TabIndex = 6
+        Me.EDTOptionsSelectorPanel.Controls.Add(Me.selectEDTOptionsButton)
+        Me.EDTOptionsSelectorPanel.Controls.Add(Me.cbClassSelector)
+        Me.EDTOptionsSelectorPanel.Controls.Add(Me.cbWeekSelector)
+        Me.EDTOptionsSelectorPanel.Location = New System.Drawing.Point(53, 219)
+        Me.EDTOptionsSelectorPanel.Name = "EDTOptionsSelectorPanel"
+        Me.EDTOptionsSelectorPanel.Size = New System.Drawing.Size(699, 305)
+        Me.EDTOptionsSelectorPanel.TabIndex = 6
         '
-        'BackFromAddItem
+        'selectEDTOptionsButton
         '
-        Me.BackFromAddItem.Location = New System.Drawing.Point(13, 16)
-        Me.BackFromAddItem.Name = "BackFromAddItem"
-        Me.BackFromAddItem.Size = New System.Drawing.Size(75, 23)
-        Me.BackFromAddItem.TabIndex = 6
-        Me.BackFromAddItem.Text = "Retour"
-        Me.BackFromAddItem.UseVisualStyleBackColor = True
+        Me.selectEDTOptionsButton.Location = New System.Drawing.Point(577, 71)
+        Me.selectEDTOptionsButton.Name = "selectEDTOptionsButton"
+        Me.selectEDTOptionsButton.Size = New System.Drawing.Size(75, 23)
+        Me.selectEDTOptionsButton.TabIndex = 7
+        Me.selectEDTOptionsButton.Text = "Consulter"
+        Me.selectEDTOptionsButton.UseVisualStyleBackColor = True
+        '
+        'cbClassSelector
+        '
+        Me.cbClassSelector.FormattingEnabled = True
+        Me.cbClassSelector.Location = New System.Drawing.Point(355, 71)
+        Me.cbClassSelector.Name = "cbClassSelector"
+        Me.cbClassSelector.Size = New System.Drawing.Size(121, 21)
+        Me.cbClassSelector.TabIndex = 1
+        '
+        'cbWeekSelector
+        '
+        Me.cbWeekSelector.FormattingEnabled = True
+        Me.cbWeekSelector.Location = New System.Drawing.Point(130, 71)
+        Me.cbWeekSelector.Name = "cbWeekSelector"
+        Me.cbWeekSelector.Size = New System.Drawing.Size(121, 21)
+        Me.cbWeekSelector.TabIndex = 0
         '
         'ShowItemsPanel
         '
@@ -700,59 +743,8 @@ Partial Class Form1
         Me.ShowItemsPanel.Controls.Add(Me.dgvClasses)
         Me.ShowItemsPanel.Location = New System.Drawing.Point(9, 9)
         Me.ShowItemsPanel.Name = "ShowItemsPanel"
-        Me.ShowItemsPanel.Size = New System.Drawing.Size(825, 395)
+        Me.ShowItemsPanel.Size = New System.Drawing.Size(825, 449)
         Me.ShowItemsPanel.TabIndex = 12
-        '
-        'dgvClasses
-        '
-        Me.dgvClasses.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvClasses.Location = New System.Drawing.Point(38, 96)
-        Me.dgvClasses.Name = "dgvClasses"
-        Me.dgvClasses.Size = New System.Drawing.Size(201, 150)
-        Me.dgvClasses.TabIndex = 0
-        '
-        'dgvSubjects
-        '
-        Me.dgvSubjects.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvSubjects.Location = New System.Drawing.Point(324, 96)
-        Me.dgvSubjects.Name = "dgvSubjects"
-        Me.dgvSubjects.Size = New System.Drawing.Size(201, 150)
-        Me.dgvSubjects.TabIndex = 1
-        '
-        'dgvProfs
-        '
-        Me.dgvProfs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvProfs.Location = New System.Drawing.Point(588, 96)
-        Me.dgvProfs.Name = "dgvProfs"
-        Me.dgvProfs.Size = New System.Drawing.Size(201, 150)
-        Me.dgvProfs.TabIndex = 2
-        '
-        'label21
-        '
-        Me.label21.AutoSize = True
-        Me.label21.Location = New System.Drawing.Point(38, 68)
-        Me.label21.Name = "label21"
-        Me.label21.Size = New System.Drawing.Size(43, 13)
-        Me.label21.TabIndex = 3
-        Me.label21.Text = "Classes"
-        '
-        'Label22
-        '
-        Me.Label22.AutoSize = True
-        Me.Label22.Location = New System.Drawing.Point(321, 68)
-        Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(47, 13)
-        Me.Label22.TabIndex = 4
-        Me.Label22.Text = "Matières"
-        '
-        'Label23
-        '
-        Me.Label23.AutoSize = True
-        Me.Label23.Location = New System.Drawing.Point(585, 68)
-        Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(62, 13)
-        Me.Label23.TabIndex = 5
-        Me.Label23.Text = "Professeurs"
         '
         'BackFromShowItems
         '
@@ -763,15 +755,124 @@ Partial Class Form1
         Me.BackFromShowItems.Text = "Retour"
         Me.BackFromShowItems.UseVisualStyleBackColor = True
         '
+        'Label23
+        '
+        Me.Label23.AutoSize = True
+        Me.Label23.Location = New System.Drawing.Point(86, 262)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(62, 13)
+        Me.Label23.TabIndex = 5
+        Me.Label23.Text = "Professeurs"
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.Location = New System.Drawing.Point(414, 141)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(47, 13)
+        Me.Label22.TabIndex = 4
+        Me.Label22.Text = "Matières"
+        '
+        'label21
+        '
+        Me.label21.AutoSize = True
+        Me.label21.Location = New System.Drawing.Point(89, 60)
+        Me.label21.Name = "label21"
+        Me.label21.Size = New System.Drawing.Size(43, 13)
+        Me.label21.TabIndex = 3
+        Me.label21.Text = "Classes"
+        '
+        'dgvProfs
+        '
+        Me.dgvProfs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvProfs.Location = New System.Drawing.Point(89, 290)
+        Me.dgvProfs.Name = "dgvProfs"
+        Me.dgvProfs.Size = New System.Drawing.Size(241, 133)
+        Me.dgvProfs.TabIndex = 2
+        '
+        'dgvSubjects
+        '
+        Me.dgvSubjects.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvSubjects.Location = New System.Drawing.Point(417, 169)
+        Me.dgvSubjects.Name = "dgvSubjects"
+        Me.dgvSubjects.Size = New System.Drawing.Size(338, 151)
+        Me.dgvSubjects.TabIndex = 1
+        '
+        'dgvClasses
+        '
+        Me.dgvClasses.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvClasses.Location = New System.Drawing.Point(89, 88)
+        Me.dgvClasses.Name = "dgvClasses"
+        Me.dgvClasses.Size = New System.Drawing.Size(241, 133)
+        Me.dgvClasses.TabIndex = 0
+        '
+        'ContextMenuStrip1
+        '
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EditerToolStripMenuItem, Me.SupprimerToolStripMenuItem})
+        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(130, 48)
+        '
+        'EditerToolStripMenuItem
+        '
+        Me.EditerToolStripMenuItem.Name = "EditerToolStripMenuItem"
+        Me.EditerToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
+        Me.EditerToolStripMenuItem.Text = "Editer"
+        '
+        'SupprimerToolStripMenuItem
+        '
+        Me.SupprimerToolStripMenuItem.Name = "SupprimerToolStripMenuItem"
+        Me.SupprimerToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
+        Me.SupprimerToolStripMenuItem.Text = "Supprimer"
+        '
+        'EditOrDeleteEDTPanel
+        '
+        Me.EditOrDeleteEDTPanel.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.EditOrDeleteEDTPanel.Controls.Add(Me.BackFromEditOrDeleteEDTPanel)
+        Me.EditOrDeleteEDTPanel.Controls.Add(Me.Label24)
+        Me.EditOrDeleteEDTPanel.Controls.Add(Me.DataGridView1)
+        Me.EditOrDeleteEDTPanel.Location = New System.Drawing.Point(6, 9)
+        Me.EditOrDeleteEDTPanel.Name = "EditOrDeleteEDTPanel"
+        Me.EditOrDeleteEDTPanel.Size = New System.Drawing.Size(802, 439)
+        Me.EditOrDeleteEDTPanel.TabIndex = 13
+        '
+        'BackFromEditOrDeleteEDTPanel
+        '
+        Me.BackFromEditOrDeleteEDTPanel.Location = New System.Drawing.Point(19, 15)
+        Me.BackFromEditOrDeleteEDTPanel.Name = "BackFromEditOrDeleteEDTPanel"
+        Me.BackFromEditOrDeleteEDTPanel.Size = New System.Drawing.Size(75, 23)
+        Me.BackFromEditOrDeleteEDTPanel.TabIndex = 2
+        Me.BackFromEditOrDeleteEDTPanel.Text = "Retour"
+        Me.BackFromEditOrDeleteEDTPanel.UseVisualStyleBackColor = True
+        '
+        'Label24
+        '
+        Me.Label24.AutoSize = True
+        Me.Label24.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label24.Location = New System.Drawing.Point(51, 54)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(413, 25)
+        Me.Label24.TabIndex = 1
+        Me.Label24.Text = "Modification ou suppression d'emploi du temps"
+        Me.Label24.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'DataGridView1
+        '
+        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DataGridView1.Location = New System.Drawing.Point(78, 97)
+        Me.DataGridView1.Name = "DataGridView1"
+        Me.DataGridView1.Size = New System.Drawing.Size(645, 294)
+        Me.DataGridView1.TabIndex = 0
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Gainsboro
-        Me.ClientSize = New System.Drawing.Size(814, 619)
+        Me.ClientSize = New System.Drawing.Size(814, 509)
+        Me.Controls.Add(Me.AddItemPannel)
         Me.Controls.Add(Me.ShowItemsPanel)
         Me.Controls.Add(Me.edtPannel)
-        Me.Controls.Add(Me.AddItemPannel)
+        Me.Controls.Add(Me.EditOrDeleteEDTPanel)
         Me.Controls.Add(Me.HomePanel)
         Me.Controls.Add(Me.AddEDTPannel)
         Me.Controls.Add(Me.Panel2)
@@ -786,24 +887,29 @@ Partial Class Form1
         Me.HomePanel.PerformLayout()
         Me.AddItemPannel.ResumeLayout(False)
         Me.AddItemPannel.PerformLayout()
-        Me.AddClassPannel.ResumeLayout(False)
-        Me.AddClassPannel.PerformLayout()
-        Me.AddProfPanel.ResumeLayout(False)
-        Me.AddProfPanel.PerformLayout()
         Me.AddSubjectPannel.ResumeLayout(False)
         Me.AddSubjectPannel.PerformLayout()
         CType(Me.nuTotalHours, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.AddProfPanel.ResumeLayout(False)
+        Me.AddProfPanel.PerformLayout()
+        Me.AddClassPannel.ResumeLayout(False)
+        Me.AddClassPannel.PerformLayout()
+        CType(Me.classRoomAddField, System.ComponentModel.ISupportInitialize).EndInit()
         Me.AddEDTPannel.ResumeLayout(False)
         Me.AddEDTPannel.PerformLayout()
         Me.edtPannel.ResumeLayout(False)
         Me.edtPannel.PerformLayout()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.classRoomAddField, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.weekEDTSubPanel.ResumeLayout(False)
+        Me.EDTOptionsSelectorPanel.ResumeLayout(False)
         Me.ShowItemsPanel.ResumeLayout(False)
         Me.ShowItemsPanel.PerformLayout()
-        CType(Me.dgvClasses, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.dgvSubjects, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvProfs, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvSubjects, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvClasses, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ContextMenuStrip1.ResumeLayout(False)
+        Me.EditOrDeleteEDTPanel.ResumeLayout(False)
+        Me.EditOrDeleteEDTPanel.PerformLayout()
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -822,12 +928,10 @@ Partial Class Form1
     Friend WithEvents listEDTButton As Button
     Friend WithEvents editEDTButton As Button
     Friend WithEvents addEDTButton As Button
-    Friend WithEvents deleteEDTButton As Button
     Friend WithEvents AddEDTPannel As Panel
     Friend WithEvents Label6 As Label
     Friend WithEvents edtPannel As Panel
     Friend WithEvents Label7 As Label
-    Friend WithEvents DataGridView1 As DataGridView
     Friend WithEvents Label11 As Label
     Friend WithEvents cbCreneaux As ComboBox
     Friend WithEvents cbSubjects As ComboBox
@@ -875,4 +979,16 @@ Partial Class Form1
     Friend WithEvents dgvProfs As DataGridView
     Friend WithEvents dgvSubjects As DataGridView
     Friend WithEvents BackFromShowItems As Button
+    Friend WithEvents EDTOptionsSelectorPanel As Panel
+    Friend WithEvents weekEDTSubPanel As Panel
+    Friend WithEvents cbWeekSelector As ComboBox
+    Friend WithEvents selectEDTOptionsButton As Button
+    Friend WithEvents cbClassSelector As ComboBox
+    Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
+    Friend WithEvents EditerToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents SupprimerToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents EditOrDeleteEDTPanel As Panel
+    Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents Label24 As Label
+    Friend WithEvents BackFromEditOrDeleteEDTPanel As Button
 End Class
