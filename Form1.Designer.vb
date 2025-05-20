@@ -78,6 +78,7 @@ Partial Class Form1
         Me.Label6 = New System.Windows.Forms.Label()
         Me.edtPannel = New System.Windows.Forms.Panel()
         Me.weekEDTSubPanel = New System.Windows.Forms.Panel()
+        Me.btnExportExcel = New System.Windows.Forms.Button()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.backFromShowEDT = New System.Windows.Forms.Button()
         Me.Label7 = New System.Windows.Forms.Label()
@@ -652,11 +653,21 @@ Partial Class Form1
         'weekEDTSubPanel
         '
         Me.weekEDTSubPanel.BackColor = System.Drawing.Color.Transparent
+        Me.weekEDTSubPanel.Controls.Add(Me.btnExportExcel)
         Me.weekEDTSubPanel.Controls.Add(Me.TableLayoutPanel1)
         Me.weekEDTSubPanel.Location = New System.Drawing.Point(8, 97)
         Me.weekEDTSubPanel.Name = "weekEDTSubPanel"
         Me.weekEDTSubPanel.Size = New System.Drawing.Size(782, 409)
         Me.weekEDTSubPanel.TabIndex = 5
+        '
+        'btnExportExcel
+        '
+        Me.btnExportExcel.Location = New System.Drawing.Point(583, 9)
+        Me.btnExportExcel.Name = "btnExportExcel"
+        Me.btnExportExcel.Size = New System.Drawing.Size(177, 23)
+        Me.btnExportExcel.TabIndex = 5
+        Me.btnExportExcel.Text = "Exporter vers Excel"
+        Me.btnExportExcel.UseVisualStyleBackColor = True
         '
         'TableLayoutPanel1
         '
@@ -666,7 +677,7 @@ Partial Class Form1
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 137.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 105.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 101.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 138.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 142.0!))
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(40, 46)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 4
@@ -869,14 +880,14 @@ Partial Class Form1
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Gainsboro
         Me.ClientSize = New System.Drawing.Size(814, 509)
-        Me.Controls.Add(Me.AddItemPannel)
-        Me.Controls.Add(Me.ShowItemsPanel)
         Me.Controls.Add(Me.edtPannel)
         Me.Controls.Add(Me.EditOrDeleteEDTPanel)
         Me.Controls.Add(Me.HomePanel)
         Me.Controls.Add(Me.AddEDTPannel)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Panel1)
+        Me.Controls.Add(Me.AddItemPannel)
+        Me.Controls.Add(Me.ShowItemsPanel)
         Me.Name = "Form1"
         Me.Text = "Form1"
         Me.Panel1.ResumeLayout(False)
@@ -991,4 +1002,5 @@ Partial Class Form1
     Friend WithEvents DataGridView1 As DataGridView
     Friend WithEvents Label24 As Label
     Friend WithEvents BackFromEditOrDeleteEDTPanel As Button
+    Friend WithEvents btnExportExcel As Button
 End Class

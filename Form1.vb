@@ -6,6 +6,10 @@ Imports System.Text
 Imports System.Windows.Forms
 Imports Microsoft.VisualBasic.Logging
 
+Imports Microsoft.Office.Interop
+Imports Excel = Microsoft.Office.Interop.Excel
+
+
 
 Public Class Form1
     Dim c As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.16.0;Data Source=..\..\gedt.accdb;")
@@ -1126,6 +1130,80 @@ Public Class Form1
         ItemToAddConfirmButton.Enabled = True
     End Sub
 
+    Private Sub ExportToExcel()
+        Dim xlApp As New Excel.Application
+        Dim xlWorkbook As Excel.Workbook = xlApp.Workbooks.Add()
+        Dim xlWorksheet As Excel.Worksheet = xlWorkbook.Sheets(1)
+
+        Try
+            xlApp.Visible = True ' mettre à True si vous voulez voir Excel s'ouvrir
+
+            For col = 0 To DataGridView1.Columns.Count - 1
+                xlWorksheet.Cells(1, col + 1).Value = DataGridView1.Columns(col).HeaderText
+            Next
+
+            For row = 0 To DataGridView1.Rows.Count - 1
+                For col = 0 To DataGridView1.Columns.Count - 1
+                    If DataGridView1.Rows(row).Cells(col).Value IsNot Nothing Then
+                        xlWorksheet.Cells(row + 2, col + 1).Value = DataGridView1.Rows(row).Cells(col).Value.ToString()
+                    End If
+                Next
+            Next
+
+            Dim saveDialog As New SaveFileDialog
+            saveDialog.Filter = "Fichiers Excel (*.xlsx)|*.xlsx"
+            saveDialog.FileName = "emploi_du_temps.xlsx"
+
+            If saveDialog.ShowDialog() = DialogResult.OK Then
+                xlWorkbook.SaveAs(saveDialog.FileName)
+                MessageBox.Show("Exportation réussie !", "Succès", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+        Catch ex As Exception
+            MessageBox.Show("Erreur lors de l'exportation : " & ex.Message)
+        Finally
+            xlWorkbook.Close(False)
+            xlApp.Quit()
+
+            Marshal.ReleaseComObject(xlWorksheet)
+            Marshal.ReleaseComObject(xlWorkbook)
+            Marshal.ReleaseComObject(xlApp)
+        End Try
+    End Sub
+    Sub ExportEDTToExcel(tlp As TableLayoutPanel)
+        Dim xlApp As New Excel.Application
+        Dim xlWorkBook As Excel.Workbook = xlApp.Workbooks.Add()
+        Dim xlWorkSheet As Excel.Worksheet = xlWorkBook.Sheets(1)
+
+        xlApp.Visible = True ' Affiche Excel
+
+        ' Parcours des lignes et colonnes du TableLayoutPanel
+        For row = 0 To tlp.RowCount - 1
+            For col = 0 To tlp.ColumnCount - 1
+                ' Recherche le contrôle à cette position
+                Dim ctrl As Control = tlp.GetControlFromPosition(col, row)
+                If ctrl IsNot Nothing AndAlso TypeOf ctrl Is Label Then
+                    Dim lbl As Label = CType(ctrl, Label)
+                    Dim texte As String = lbl.Text
+                    ' Excel utilise les index 1-based
+                    xlWorkSheet.Cells(row + 1, col + 1).Value = texte
+                    ' Formatage simple
+                    xlWorkSheet.Cells(row + 1, col + 1).WrapText = True
+                    xlWorkSheet.Cells(row + 1, col + 1).HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter
+                    xlWorkSheet.Cells(row + 1, col + 1).VerticalAlignment = Excel.XlVAlign.xlVAlignCenter
+                    xlWorkSheet.Cells(row + 1, col + 1).Borders.Weight = Excel.XlBorderWeight.xlThin
+                End If
+            Next
+        Next
+
+        ' Ajuster la largeur des colonnes
+        xlWorkSheet.Columns.AutoFit()
+
+        MsgBox("Emploi du temps exporté vers Excel avec succès.", MsgBoxStyle.Information)
+    End Sub
+
+    Private Sub btnExportExcel_Click(sender As Object, e As EventArgs) Handles btnExportExcel.Click
+        ExportEDTToExcel(TableLayoutPanel1)
+    End Sub
 
 End Class
 
