@@ -82,17 +82,7 @@ Public Class Form1
     End Sub
 
 
-    Public Function HashSHA256(input As String) As String
-        Using sha256 As SHA256 = SHA256.Create()
-            Dim bytes As Byte() = Encoding.UTF8.GetBytes(input)
-            Dim hashBytes As Byte() = sha256.ComputeHash(bytes)
-            Dim sb As New StringBuilder()
-            For Each b As Byte In hashBytes
-                sb.Append(b.ToString("x2")) ' Convertir en hexadécimal
-            Next
-            Return sb.ToString()
-        End Using
-    End Function
+
     Function ConflitHoraire() As Boolean
         Connexion()
 
@@ -262,7 +252,7 @@ Public Class Form1
 
             Dim sql As New OleDb.OleDbCommand("SELECT * FROM USERS WHERE Trim(username) = @username AND password = @password", c)
             sql.Parameters.AddWithValue("@username", username_field.Text)
-            sql.Parameters.AddWithValue("@password", password_field.Text)
+            sql.Parameters.AddWithValue("@password", Inscription.HashSHA256(password_field.Text))
             Dim log As String = "Requête : " & sql.CommandText & vbCrLf
             'For Each p As OleDbParameter In sql.Parameters
             'log &= $"{p.ParameterName} = {p.Value}" & vbCrLf
@@ -306,7 +296,6 @@ Public Class Form1
         INNER JOIN PROFESSOR ON SUBJECT.professor_id = PROFESSOR.id )       
         ORDER BY WEEK.week_no, DAYS.day_order, CRENEAU.creneau_order
     "
-        '        WHERE WEEK.week_no = @week_no
 
         Dim dt As New DataTable
         Dim da As New OleDbDataAdapter(requete, c)
@@ -389,7 +378,6 @@ Public Class Form1
             tlp.RowStyles.Add(New RowStyle(SizeType.Absolute, 64))
         Next
 
-        ' En-têtes
         For col = 1 To jours.Count
             Dim lbl As New Label With {
             .Text = jours(col - 1),
@@ -412,7 +400,6 @@ Public Class Form1
             tlp.Controls.Add(lbl, 0, row)
         Next
 
-        ' Charger le contenu de l'emploi du temps
         Dim da As New OleDbDataAdapter("
         SELECT DAYS.day_label, CRENEAU.label, SUBJECT.subject_name, PROFESSOR.prof_name
         FROM(((( emploiDuTemps
@@ -429,7 +416,6 @@ Public Class Form1
         Dim dt As New DataTable
         da.Fill(dt)
 
-        ' Placer les données dans la grille
         For Each row As DataRow In dt.Rows
             Dim jour = row("day_label").ToString()
             Dim creneau = row("label").ToString()
@@ -643,22 +629,18 @@ Public Class Form1
     End Sub
 
     Private Sub dgvSubjects_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSubjects.CellClick
-        ' Vérifier que le clic n'est pas sur l'en-tête
         If e.RowIndex >= 0 Then
-            ' Récupérer la ligne sélectionnée
             Dim selectedRow As DataGridViewRow = dgvSubjects.Rows(e.RowIndex)
 
-            ' Exemple: Afficher les informations de la matière sélectionnée
             Dim subjectName As String = selectedRow.Cells("Nom").Value.ToString()
             Dim remainingHours As String = selectedRow.Cells("Heures restantes").Value.ToString()
             Dim teacher As String = selectedRow.Cells("Enseignant").Value.ToString()
 
-            MessageBox.Show($"Matière: {subjectName}" & vbCrLf &
-                           $"Heures restantes: {remainingHours}" & vbCrLf &
-                           $"Enseignant: {teacher}", "Détails de la matière")
+            'MessageBox.Show($"Matière: {subjectName}" & vbCrLf &
+            '              $"Heures restantes: {remainingHours}" & vbCrLf &
+            '             $"Enseignant: {teacher}", "Détails de la matière")
 
-            ' Vous pouvez aussi ouvrir un formulaire d'édition ici
-            ' EditSubject(subjectName, remainingHours, teacher)
+
         End If
     End Sub
     Sub EditClass(id As Integer, name As String, room As Integer)
@@ -953,7 +935,6 @@ Public Class Form1
                 Case Form2.TypeElement.Subject
                     Dim selectedRow As DataGridViewRow = dgvSubjects.SelectedRows(0)
 
-                    ' Vérification des valeurs
                     If selectedRow.Cells("id").Value Is Nothing OrElse
                    selectedRow.Cells("Nom").Value Is Nothing OrElse
                    selectedRow.Cells("Heures restantes").Value Is Nothing Then
@@ -961,19 +942,16 @@ Public Class Form1
                         Return
                     End If
 
-                    ' Créer et configurer le formulaire d'édition
                     Using editForm As New Form2()
-                        ' Passer les valeurs actuelles
+
                         editForm.type = Form2.TypeElement.Subject
                         editForm.SubjectId = CInt(selectedRow.Cells("id").Value)
                         editForm.SubjectName = selectedRow.Cells("Nom").Value.ToString()
                         editForm.HoursLeft = CInt(selectedRow.Cells("Heures restantes").Value)
 
-                        ' Récupérer l'ID du professeur actuel
                         Dim currentProfId As Integer = GetCurrentProfessorId(editForm.SubjectId)
                         editForm.ProfessorId = currentProfId
 
-                        ' Afficher le formulaire comme dialogue modal
                         If editForm.ShowDialog() = DialogResult.OK Then
                             EditSubject(editForm.SubjectId,
                                   editForm.SubjectName,
@@ -1098,7 +1076,7 @@ Public Class Form1
                 End If
 
             Case Form2.TypeElement.Subject
-                ' Vérifier si une ligne est sélectionnée dans le DataGridView des matières
+
                 If dgvSubjects.SelectedRows.Count > 0 Then
                     Dim result As DialogResult = MessageBox.Show("Voulez-vous vraiment supprimer cette matière?",
                                                            "Confirmation",
@@ -1174,19 +1152,18 @@ Public Class Form1
         Dim xlWorkBook As Excel.Workbook = xlApp.Workbooks.Add()
         Dim xlWorkSheet As Excel.Worksheet = xlWorkBook.Sheets(1)
 
-        xlApp.Visible = True ' Affiche Excel
+        xlApp.Visible = True
 
-        ' Parcours des lignes et colonnes du TableLayoutPanel
         For row = 0 To tlp.RowCount - 1
             For col = 0 To tlp.ColumnCount - 1
-                ' Recherche le contrôle à cette position
+
                 Dim ctrl As Control = tlp.GetControlFromPosition(col, row)
                 If ctrl IsNot Nothing AndAlso TypeOf ctrl Is Label Then
                     Dim lbl As Label = CType(ctrl, Label)
                     Dim texte As String = lbl.Text
-                    ' Excel utilise les index 1-based
+
                     xlWorkSheet.Cells(row + 1, col + 1).Value = texte
-                    ' Formatage simple
+
                     xlWorkSheet.Cells(row + 1, col + 1).WrapText = True
                     xlWorkSheet.Cells(row + 1, col + 1).HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter
                     xlWorkSheet.Cells(row + 1, col + 1).VerticalAlignment = Excel.XlVAlign.xlVAlignCenter
@@ -1195,7 +1172,6 @@ Public Class Form1
             Next
         Next
 
-        ' Ajuster la largeur des colonnes
         xlWorkSheet.Columns.AutoFit()
 
         MsgBox("Emploi du temps exporté vers Excel avec succès.", MsgBoxStyle.Information)
@@ -1205,5 +1181,12 @@ Public Class Form1
         ExportEDTToExcel(TableLayoutPanel1)
     End Sub
 
+    Private Sub LinkLabel1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
+        Using signUp As New Inscription()
+            If signUp.ShowDialog() = DialogResult.OK Then
+                MsgBox("Inscription réussie ! Vous pouvez maintenant vous connecter.", MsgBoxStyle.Information)
+            End If
+        End Using
+    End Sub
 End Class
 
