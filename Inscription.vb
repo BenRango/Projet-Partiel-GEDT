@@ -3,7 +3,7 @@ Imports System.Security.Cryptography
 Imports System.Text
 
 Public Class Inscription
-    Dim c As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.16.0;Data Source=..\..\gedt.accdb;")
+    Dim c As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.16.0;Data Source=..\Debug\gedt.accdb;")
     Public Function HashSHA256(input As String) As String
         Using sha256 As SHA256 = sha256.Create()
             Dim bytes As Byte() = Encoding.UTF8.GetBytes(input)
@@ -30,6 +30,12 @@ Public Class Inscription
         cmd.Parameters.AddWithValue("@username", tbUsernameField.Text)
         cmd.Parameters.AddWithValue("@password", HashSHA256(tbPasswordField.Text))
         cmd.Parameters.AddWithValue("@role", cbRoleSelector.Text) ' SelectedItem.ToString()
+        Dim debugSql As String = "Paramètres passés à la requête :" & vbCrLf
+        For i As Integer = 0 To cmd.Parameters.Count - 1
+            debugSql &= "Paramètre " & (i + 1) & " : " & cmd.Parameters(i).Value.ToString() & vbCrLf
+        Next
+        MsgBox(debugSql, MsgBoxStyle.Information, "Debug SQL")
+
 
         Dim result As Integer = cmd.ExecuteNonQuery()
 

@@ -12,7 +12,7 @@ Imports Excel = Microsoft.Office.Interop.Excel
 
 
 Public Class Form1
-    Dim c As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.16.0;Data Source=..\..\gedt.accdb;")
+    Dim c As New OleDbConnection("Provider=Microsoft.ACE.OLEDB.16.0;Data Source=..\Debug\gedt.accdb;")
     Dim editType As Form2.TypeElement
     Public Function GetClassRooms()
         Try
